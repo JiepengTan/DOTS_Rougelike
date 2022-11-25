@@ -1,11 +1,12 @@
 ﻿using Unity.Entities;
 
 namespace GamesTan.ECS.Game {
-    public partial class GameConfigBaker : Baker<GameConfigAuthoring> {
-        public override void Bake(GameConfigAuthoring authoring) {
-            var config = new GameConfigComponent {
+    public partial class LevelConfigBaker : Baker<LevelConfigAuthoring> {
+        public override void Bake(LevelConfigAuthoring authoring) {
+            var config = new LevelConfigComponent {
                 EnemyPrefabs = this.GetEntity(authoring.EnemyPrefabs),
                 WallPrefabs = this.GetEntity(authoring.WallPrefabs),
+                OutWallPrefabs = this.GetEntity(authoring.OutWallPrefabs),
                 FloorPrefabs = this.GetEntity(authoring.FloorPrefabs),
                 FoodPrefabs = this.GetEntity(authoring.FoodPrefabs),
                 PlayerPrefab = this.GetEntity(authoring.PlayerPrefab),

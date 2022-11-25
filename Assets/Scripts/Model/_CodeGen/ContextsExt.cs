@@ -5,6 +5,6 @@ namespace GamesTan.ECS.Game {
     }
 
     public partial class GameContexts {
-        public GameData GameData;
+        public GameData GameData = new GameData();
     }
 }

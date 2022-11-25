@@ -6,6 +6,8 @@ namespace GamesTan.ECS.Game {
         public int Score;
         public int Life;
         public int Level;
+        public uint RndSeed;
+        public bool isNeedSpawn = true;
     }
 
 

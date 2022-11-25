@@ -3,9 +3,10 @@ using Unity.Entities;
 using Unity.Mathematics;
 
 namespace GamesTan.ECS.Game {
-    public struct GameConfigComponent : IComponentData {
+    public struct LevelConfigComponent : IComponentData {
         public NativeArray<Entity> EnemyPrefabs;
         public NativeArray<Entity> WallPrefabs;
+        public NativeArray<Entity> OutWallPrefabs;
         public NativeArray<Entity> FloorPrefabs;
         public NativeArray<Entity> FoodPrefabs;
 

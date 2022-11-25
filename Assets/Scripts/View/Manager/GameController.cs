@@ -13,6 +13,7 @@ namespace GamesTan.ECS.Game.View {
             }
 
             Debug.Log("Starting GameController using seed " + Random.seed);
+            Contexts.GameData.isNeedSpawn = true;
         }
 
         void Update() {
