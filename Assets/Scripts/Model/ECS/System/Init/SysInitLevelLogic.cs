@@ -19,90 +19,83 @@ namespace GamesTan.ECS.Game {
 
         protected override void OnUpdate() {
             var ecb = m_BeginSimECBSystem.CreateCommandBuffer();
-            var seed = Contexts.GameData.RndSeed;
             var min = GameDefine.MinMapPos;
             var max = GameDefine.MaxMapPos;
-            var m_Archetype = World.EntityManager.CreateArchetype(
-                typeof(CPosition),
-                typeof(CEntityId),
-                typeof(CTagDynamic),
-                // view component
-                typeof(CEnableView),
-                typeof(CEntityView)
-            );
-
-            Entities.ForEach((Entity entity, CLevelLogicConfig config) => {
-                    var allPos = new NativeList<int2>(GameDefine.FreeSlotSize, Allocator.Temp);
+            var em = EntityManager;
+            Entities.ForEach((Entity entity
+                    , CTagLoadLevel tag //标记是否需要加载场景
+                    , CLevelLogicConfig config
+                    , DynamicBuffer<CPrefabPlayer> players
+                    , DynamicBuffer<CPrefabWall> walls
+                    , DynamicBuffer<CPrefabEnemy> enemies
+                    , DynamicBuffer<CPrefabItem> items
+                ) => {
+                    var seed = config.RndSeed;
                     var rnd = new Random(seed);
-                    int idx = 0;
-                    for (int x = min.x; x <= max.x; x++) {
-                        for (int y = min.y; y <= max.y; y++) {
-                            var pos = new int2(x, y);
-                            if (((pos.x != max.x) || (pos.y != max.y))
-                                || ((pos.x != min.x) || (pos.y != min.y))
-                            ) {
-                                allPos.Add(pos);
-                            }
-                        }
+                    var allPos = GetFreeSlotList(seed, min, max, ref rnd);
+                    //var allPos = new NativeList<int2>();
+                    var freeSlotCount = allPos.Length;
+                    // create player
+                    CreateEntity(em,ecb, players, rnd, GameDefine.PlayerInitPos);
+                    // create enemy
+                    for (int i = 0; i < config.EnemyCount; i++) {
+                        CreateEntity(em, ecb, enemies, rnd, allPos[--freeSlotCount]);
                     }
 
-                    var count = allPos.Length;
-                    for (int i = 0; i < count; i++) {
-                        // swap
-                        var slotIdx = rnd.NextInt(i, count);
-                        var temp = allPos[slotIdx];
-                        allPos[slotIdx] = allPos[i];
-                        allPos[i] = temp;
+                    // create wall
+                    for (int i = 0; i < config.WallCount; i++) {
+                        CreateEntity(em,ecb, walls, rnd, allPos[--freeSlotCount]);
                     }
 
-                    InitMap(config, allPos, rnd, ecb, m_Archetype);
-                    ecb.DestroyEntity(entity);
+                    // create item
+                    for (int i = 0; i < config.FoodCount; i++) {
+                        CreateEntity(em,ecb, items, rnd, allPos[--freeSlotCount]);
+                    }
+
+                    em.SetComponentEnabled<CTagLoadLevel>(entity,false);
                     allPos.Dispose();
                 }
             ).Run();
             m_BeginSimECBSystem.AddJobHandleForProducer(Dependency);
         }
 
-        private static void InitMap(CLevelLogicConfig config, NativeList<int2> allPos, Random rnd,
-            EntityCommandBuffer ecb,
-            EntityArchetype archetype) {
-            var freeSlotCount = allPos.Length;
-            {
-                // create player
-                CreateEntity(ecb, archetype, GameDefine.PlayerInitPos, new CUnitPlayer());
-            }
-            {
-                // create enemy
-                for (int i = 0; i < config.EnemyCount; i++) {
-                    var pos = allPos[--freeSlotCount];
-                    CreateEntity(ecb, archetype, pos,
-                        new CUnitEnemy() {Type = rnd.NextInt(0, config.GetEnemyType(rnd))});
+        private static NativeList<int2> GetFreeSlotList(uint seed, int2 min, int2 max, ref Random rnd) {
+            var allPos = new NativeList<int2>(GameDefine.FreeSlotSize, Allocator.Temp);
+            int idx = 0;
+            for (int x = min.x; x <= max.x; x++) {
+                for (int y = min.y; y <= max.y; y++) {
+                    var pos = new int2(x, y);
+                    if (((pos.x != max.x) || (pos.y != max.y))
+                        || ((pos.x != min.x) || (pos.y != min.y))
+                    ) {
+                        allPos.Add(pos);
+                    }
                 }
             }
-            {
-                // create wall
-                for (int i = 0; i < config.WallCount; i++) {
-                    var pos = allPos[--freeSlotCount];
-                    CreateEntity(ecb, archetype, pos, new CUnitWall());
-                }
+
+            var count = allPos.Length;
+            for (int i = 0; i < count; i++) {
+                // swap
+                var slotIdx = rnd.NextInt(i, count);
+                var temp = allPos[slotIdx];
+                allPos[slotIdx] = allPos[i];
+                allPos[i] = temp;
             }
-            {
-                // create Food
-                for (int i = 0; i < config.FoodCount; i++) {
-                    var pos = allPos[--freeSlotCount];
-                    CreateEntity(ecb, archetype, pos, new CUnitFood() {Type = rnd.NextInt(0, config.GetFoodType(rnd))});
-                }
-            }
+
+            return allPos;
         }
 
 
-        private static Entity CreateEntity<T>(EntityCommandBuffer ecb, EntityArchetype type, int2 pos, T comp)
-            where T : unmanaged, IComponentData {
-            var instance = ecb.CreateEntity(type);
-            ecb.AddComponent(instance, comp);
-            ecb.SetComponent(instance, new CPosition() {Value = pos});
-            ecb.SetComponent(instance, new CEntityId() {Value = Contexts.GameData.GenId()});
-            return instance;
+        private static Entity CreateEntity<T>(EntityManager em, EntityCommandBuffer ecb, DynamicBuffer<T> buffer,
+            Random rnd, int2 pos)
+            where T : unmanaged, IPrefabBufferElement {
+            var prefab = buffer[rnd.NextInt(buffer.Length)].Prefab;
+            var entity = ecb.Instantiate(prefab);
+            //var comp = em.GetComponentData<CBaseUnit>(entity);
+            //comp.EntityId = Contexts.GameData.GenId();
+            //ecb.SetComponent(entity, comp);
+            ecb.SetComponent(entity, new LocalToWorldTransform {Value = UniformScaleTransform.FromPosition(new float3(pos, 0))});
+            return entity;
         }
     }
 }

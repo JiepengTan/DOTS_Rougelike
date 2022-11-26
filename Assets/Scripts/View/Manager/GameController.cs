@@ -1,5 +1,6 @@
-
+using System;
 using Unity.Entities;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace GamesTan.ECS.Game.View {
@@ -9,21 +10,19 @@ namespace GamesTan.ECS.Game.View {
 
 
         public CLevelLogicConfig Config;
+
         void Start() {
-            Debug.Log("Starting GameController using seed " +randomSeed);
+            Debug.Log("Starting GameController using seed " + randomSeed);
             Contexts.GameData.DoAwake();
             Contexts.GameData.RndSeed = randomSeed;
-            LoadLevel(Config);
         }
 
 
-        void LoadLevel(CLevelLogicConfig config) {
+        public void LoadLevel(CLevelLogicConfig config) {
             var em = World.DefaultGameObjectInjectionWorld.EntityManager;
-            var entity = em.CreateEntity(typeof(CLevelLogicConfig));
-            em.SetComponentData(entity,config );
-            
+            var entity = SystemAPI.GetSingletonEntity<CLevelLogicConfig>();
+            em.SetComponentData(entity, config);
+            em.SetComponentEnabled<CTagLoadLevel>(entity, true);
         }
-        
-
     }
 }

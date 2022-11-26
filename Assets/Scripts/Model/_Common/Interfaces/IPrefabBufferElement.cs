@@ -2,6 +2,7 @@
 
 namespace GamesTan.ECS.Game {
     public interface IPrefabBufferElement :IBufferElementData{
-        public Entity Prefab{  set; }
+        public Entity Prefab { get;  set; }
     }
+    
 }

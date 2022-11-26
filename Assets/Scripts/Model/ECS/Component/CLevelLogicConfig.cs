@@ -2,33 +2,39 @@
 using Unity.Mathematics;
 
 namespace GamesTan.ECS.Game {
-    public partial struct CPrefabOutWall : IPrefabBufferElement { public Entity Value; public Entity Prefab { set => Value = value; } }
-    public partial struct CPrefabFloor : IPrefabBufferElement { public Entity Value; public Entity Prefab { set => Value = value; } }
 
-    public partial struct CTagDynamic : IComponentData { 
+    public partial struct CBaseUnit : IComponentData { 
+        public long EntityId;
+        public long AssetId;
+        public float3 Pos;
     }
     public partial struct CEntityView : IComponentData { 
         public int ViewId;
     }
     public partial struct CEnableView :IComponentData, IEnableableComponent {
     }
-    public partial struct CUnitPlayer : IComponentData { }
     
+    public partial struct CUnitPlayer : IComponentData {
+        public int Health;
+        public float MoveInterval;
+        public int Damage;
+    }
     public partial struct CUnitEnemy : IComponentData {
-        public int Type;
+        public int Health;
+        public float MoveInterval;
+        public int Damage;
+        public int AI;
     }
+
     public partial struct CUnitWall : IComponentData {
-        public int Type;
+        public int Health;
     }
-    public partial struct CUnitFood : IComponentData { 
-        public int Type;
+
+    public partial struct CUnitItem : IComponentData {
+        public int Health;
     }
-    public partial struct CPosition : IComponentData {
-        public int2 Value;
-    }
-    public partial struct CEntityId : IComponentData {
-        public long Value;
-    }
+
+
     
     public partial struct CViewFloor : IComponentData { }
     public partial struct CViewOutWall : IComponentData { }
@@ -39,9 +45,9 @@ namespace GamesTan.ECS.Game {
         public int EnemyCount;
         public int WallCount;
         public int FoodCount;
-
-
     }
+
+    public partial struct CTagLoadLevel : IComponentData,IEnableableComponent { }
 
     public static class ECSExt {
         public static int GetEnemyType(this CLevelLogicConfig self,Random rnd) {
