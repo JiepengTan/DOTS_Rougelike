@@ -167,18 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4544cd369049f3a2d9bfb6f09cab84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefabs:
-  - {fileID: 195068, guid: ebfba08a213d34c46ba2b1947aeaea83, type: 3}
-  - {fileID: 161064, guid: 089a2f2c322ea40f9afdfaba0550c6d3, type: 3}
-  WallPrefabs:
-  - {fileID: 110520, guid: 2570048905bd94d6f8a99d13b80daf90, type: 3}
-  - {fileID: 110520, guid: b86334000bc0f47ba8dd33ea88cfcdb1, type: 3}
-  - {fileID: 110520, guid: 01ca47a83ebe24ca5a2f6b1d6dcd7481, type: 3}
-  - {fileID: 110520, guid: 022eda2f1f0cb45e28ff6840b68928bc, type: 3}
-  - {fileID: 110520, guid: e1816487b15cd4c5fbd9587521e068ca, type: 3}
-  - {fileID: 110520, guid: 5ddc2d7828b2d462286f09274199ad9a, type: 3}
-  - {fileID: 110520, guid: 64139c47b57e34c5fa97fd79f8d25244, type: 3}
-  - {fileID: 110520, guid: 741804431f4d341cdae1f15b3896aeff, type: 3}
   OutWallPrefabs:
   - {fileID: 110520, guid: 7094f72151ec74f569c4e03f1ec0f8e7, type: 3}
   - {fileID: 110520, guid: b0ace21a29149403094422fb3bd96aa9, type: 3}
@@ -192,10 +180,6 @@ MonoBehaviour:
   - {fileID: 127736, guid: 4cdf8ac85eff446d0a8fefbdc8c6569f, type: 3}
   - {fileID: 110520, guid: 5535fd6cd705e4a79a1d5a4f114de5dc, type: 3}
   - {fileID: 110520, guid: c18e9692903814865aa9a855aaa66df5, type: 3}
-  FoodPrefabs:
-  - {fileID: 110520, guid: 46e8bf4bf645a47e3ae1b60c7e18418c, type: 3}
-  - {fileID: 110520, guid: ad25a4e752915438e9f55a35bedacf1f, type: 3}
-  PlayerPrefab: {fileID: 146652, guid: 5f42ed0da8e43c84c8c090f4f05ce0e1, type: 3}
   ExitPrefab: {fileID: 110520, guid: cb0f3020bafec423aa31d0e491c4b811, type: 3}
   MapSize: {x: 10, y: 10}
   RandomSeed: 11

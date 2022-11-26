@@ -35,5 +35,7 @@ namespace GamesTan.ECS.Game {
         public void SetTile(int x, int y, int type) {
             pos2Type[new int2(x, y)] = type;
         }
+
+      
     }
 }

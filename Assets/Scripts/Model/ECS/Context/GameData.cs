@@ -7,6 +7,14 @@ namespace GamesTan.ECS.Game {
         public int Life;
         public int Level;
         public uint RndSeed;
-        public bool isNeedSpawn = true;
+        public long sId;
+
+        public void DoAwake() {
+            sId = 0;
+        }
+
+        public long GenId() {
+            return ++sId;
+        }
     }
 }

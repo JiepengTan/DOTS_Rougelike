@@ -8,7 +8,7 @@ using Unity.Transforms;
 namespace GamesTan.ECS.Game {
     [UpdateInGroup(typeof(InitGroup))]
     [RequireMatchingQueriesForUpdate]
-    public partial class LoadLevelSystem : SystemBase {
+    public partial class InitViewSystem : SystemBase {
         private BeginSimulationEntityCommandBufferSystem m_BeginSimECBSystem;
 
         protected override void OnCreate() {
@@ -18,16 +18,12 @@ namespace GamesTan.ECS.Game {
         
         protected override void OnUpdate() {
             var ecb = m_BeginSimECBSystem.CreateCommandBuffer();
-            var dt = SystemAPI.Time.DeltaTime;
             var mapSize = GameDefine.MapSize;
-            Entities.ForEach((Entity entity, CLevelConfig config,
-                DynamicBuffer<CPrefabFloor> floors
-                ,DynamicBuffer<CPrefabWall> walls
+            Entities.ForEach((Entity entity, CLevelViewConfig config
+                ,DynamicBuffer<CPrefabFloor> floors
                 ,DynamicBuffer<CPrefabOutWall> outwalls
-                ,DynamicBuffer<CPrefabFood> foods
-                ,DynamicBuffer<CPrefabEnemy> enemies
                 ) => {
-                var rnd = new Random(config.RandomSeed);
+                var rnd = new Random(config.RndSeed);
                 {
                     // create floor
                     var prefabCount = floors.Length;
@@ -36,7 +32,6 @@ namespace GamesTan.ECS.Game {
                             var prefab = floors[rnd.NextInt(prefabCount)].Value;
                             var instance = ecb.Instantiate( prefab);
                             ecb.SetComponent( instance, new LocalToWorldTransform {Value = UniformScaleTransform.FromPosition(new float3(x, y, 0))});
-                            ecb.AddComponent(instance,new CTagFloor());
                         }
                     }
                 }
@@ -50,10 +45,8 @@ namespace GamesTan.ECS.Game {
                         for (int x = 0; x < mapSize.x; x++) {
                             var instance1 = ecb.Instantiate( outwalls[rnd.NextInt(prefabCount)].Value);
                             ecb.SetComponent( instance1, new LocalToWorldTransform {Value = UniformScaleTransform.FromPosition(new float3(x, min, 0))});
-                            ecb.AddComponent(instance1,new CTagOutWall());
                             var instance2 = ecb.Instantiate( outwalls[rnd.NextInt(prefabCount)].Value);
                             ecb.SetComponent( instance2, new LocalToWorldTransform {Value = UniformScaleTransform.FromPosition(new float3(x, max, 0))});
-                            ecb.AddComponent(instance1,new CTagOutWall());
                         }
                     }
                     {
@@ -63,30 +56,18 @@ namespace GamesTan.ECS.Game {
                         for (int y = 1; y < mapSize.y-1; y++) {
                             var instance1 = ecb.Instantiate( outwalls[rnd.NextInt(prefabCount)].Value);
                             ecb.SetComponent( instance1, new LocalToWorldTransform {Value = UniformScaleTransform.FromPosition(new float3(min, y, 0))});
-                            ecb.AddComponent(instance1,new CTagOutWall());
                             var instance2 = ecb.Instantiate( outwalls[rnd.NextInt(prefabCount)].Value);
                             ecb.SetComponent( instance2, new LocalToWorldTransform {Value = UniformScaleTransform.FromPosition(new float3(max, y, 0))});
-                            ecb.AddComponent(instance1,new CTagOutWall());
                         }
                     }
-                }
-
-                {
-                    // create player
-                    var instance = ecb.Instantiate( config.PlayerPrefab);
-                    ecb.SetComponent( instance, new LocalToWorldTransform {Value = UniformScaleTransform.FromPosition(new float3(GameDefine.PlayerInitPos, 0))});
-                    ecb.AddComponent(instance,new CTagPlayer());
                 }
                 {
                     // create exit
                     var instance = ecb.Instantiate( config.ExitPrefab);
                     ecb.SetComponent( instance, new LocalToWorldTransform {Value = UniformScaleTransform.FromPosition(new float3(GameDefine.PlayerExitPos, 0))});
-                    ecb.AddComponent(instance,new CTagExit());
                 }
-
-                
                 ecb.DestroyEntity(entity);
-            }).Run();
+            }).Schedule();
             m_BeginSimECBSystem.AddJobHandleForProducer(Dependency);
         }
     }
