@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Entities.Serialization;
 using UnityEngine;
 
 namespace GamesTan.ECS.Game {
@@ -11,6 +12,13 @@ namespace GamesTan.ECS.Game {
                 ary[i] =  self.GetEntity(prefabs[i]);
             }
             return ary;
+        }
+        public static void CreateBuffer<T>(this IBaker self,  List<GameObject> prefabs)where T :unmanaged, IPrefabBufferElement {
+            var buffer = self.SetBuffer<T>();
+            foreach (var prefab in prefabs)
+            {
+                buffer.Add(new T { Prefab = self.GetEntity(prefab) });
+            }
         }
     }
 }

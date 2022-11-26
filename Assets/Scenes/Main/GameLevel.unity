@@ -195,7 +195,7 @@ MonoBehaviour:
   FoodPrefabs:
   - {fileID: 110520, guid: 46e8bf4bf645a47e3ae1b60c7e18418c, type: 3}
   - {fileID: 110520, guid: ad25a4e752915438e9f55a35bedacf1f, type: 3}
-  PlayerPrefab: {fileID: 110520, guid: cb0f3020bafec423aa31d0e491c4b811, type: 3}
+  PlayerPrefab: {fileID: 146652, guid: 5f42ed0da8e43c84c8c090f4f05ce0e1, type: 3}
   ExitPrefab: {fileID: 110520, guid: cb0f3020bafec423aa31d0e491c4b811, type: 3}
   MapSize: {x: 10, y: 10}
   RandomSeed: 11

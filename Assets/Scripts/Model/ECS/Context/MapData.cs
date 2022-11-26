@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 
 namespace GamesTan.ECS.Game {
     public partial class MapData : IContext {
+        
         public NativeHashMap<int2, int> pos2Type = new NativeHashMap<int2, int>();
 
         public const int ETypeNone = 0;

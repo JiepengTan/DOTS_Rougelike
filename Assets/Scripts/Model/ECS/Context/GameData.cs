@@ -9,6 +9,4 @@ namespace GamesTan.ECS.Game {
         public uint RndSeed;
         public bool isNeedSpawn = true;
     }
-
-
 }
