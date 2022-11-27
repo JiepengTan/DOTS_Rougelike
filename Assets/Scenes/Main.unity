@@ -887,7 +887,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 130110, guid: 4d0d54eb665db8845add4a3fcc436cbf, type: 3}
       propertyPath: m_Name
-      value: ResourceController
+      value: ResourceManager
       objectReference: {fileID: 0}
     - target: {fileID: 408316, guid: 4d0d54eb665db8845add4a3fcc436cbf, type: 3}
       propertyPath: m_RootOrder

@@ -45,3 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AssetId: 1000
+  ConfigId: 0
+  Health: 1
