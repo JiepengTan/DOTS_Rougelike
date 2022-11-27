@@ -5,11 +5,15 @@ namespace GamesTan.ECS.Game {
         public override void Bake(BaseUnitAuthoring authoring) {
             AddComponent(GetEntity(), new ComponentTypeSet(
                 new ComponentType[] {
+                    typeof(CAssetInfo),
                     typeof(CBaseUnit),
                     typeof(CEntityView),
                     typeof(CEnableView),
                 }));
-            SetComponent(GetEntity(), new CBaseUnit() {AssetId = authoring.AssetId});
+            SetComponent(GetEntity(), new CAssetInfo() {
+                AssetId = authoring.AssetId,
+                ConfigId = authoring.ConfigId
+            });
         }
     }
 }

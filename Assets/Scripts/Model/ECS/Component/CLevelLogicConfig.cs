@@ -3,10 +3,14 @@ using Unity.Mathematics;
 
 namespace GamesTan.ECS.Game {
 
+    public partial struct CAssetInfo : IComponentData {
+        public long AssetId;
+        public long ConfigId;
+    }
+
     public partial struct CBaseUnit : IComponentData { 
         public long EntityId;
-        public long AssetId;
-        public float3 Pos;
+        public int2 Pos;
     }
     public partial struct CEntityView : IComponentData { 
         public int ViewId;

@@ -91,10 +91,7 @@ namespace GamesTan.ECS.Game {
             where T : unmanaged, IPrefabBufferElement {
             var prefab = buffer[rnd.NextInt(buffer.Length)].Prefab;
             var entity = ecb.Instantiate(prefab);
-            //var comp = em.GetComponentData<CBaseUnit>(entity);
-            //comp.EntityId = Contexts.GameData.GenId();
-            //ecb.SetComponent(entity, comp);
-            ecb.SetComponent(entity, new LocalToWorldTransform {Value = UniformScaleTransform.FromPosition(new float3(pos, 0))});
+            ecb.SetComponent(entity, new CBaseUnit(){EntityId = Contexts.GameData.GenId(),Pos = pos});
             return entity;
         }
     }

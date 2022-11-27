@@ -238,7 +238,7 @@ MonoBehaviour:
   PrefabItem:
   - {fileID: 2064014958139169241, guid: 94bc6e05b6cb4694aa7ae465e762268b, type: 3}
   - {fileID: 134151456144897024, guid: fe0d0c6cf2fb25347a889d92f0183e3f, type: 3}
-  RndSeed: 4
+  RndSeed: 5
   EnemyCount: 1
   WallCount: 3
   FoodCount: 4
