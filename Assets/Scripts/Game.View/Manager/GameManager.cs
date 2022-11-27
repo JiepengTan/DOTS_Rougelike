@@ -8,23 +8,30 @@ namespace GamesTan.Game.View {
     public class GameManager : BaseMonoManager<GameManager> {
         public bool useSeed = false;
         public uint randomSeed = 42;
-
-
-        public CdLevelLogicConfig Config;
-
+        public int InitFood = 100;
+        public LevelConfigData LevelConfigData;
+        public bool IsNeedLoadLevel => Contexts.GameData.IsNeedLoadLevel;
+        
         public override void DoAwake() {
             base.DoAwake();
+            EventUtil.RemoveAllListener();
             Debug.Log("Starting GameController using seed " + randomSeed);
             Contexts.ResetId();
+            Contexts.LevelConfigData = LevelConfigData;
             Contexts.ResetRandom(randomSeed);
+            Contexts.GameData.Food = InitFood;
+            Contexts.GameData.IsNeedLoadLevel = true;
         }
 
+        public void Update() {
+            if (IsNeedLoadLevel) {
+                LoadLevel();
+            }
+        }
 
-        public void LoadLevel(CdLevelLogicConfig config) {
-            var em = World.DefaultGameObjectInjectionWorld.EntityManager;
-            var entity = SystemAPI.GetSingletonEntity<CdLevelLogicConfig>();
-            em.SetComponentData(entity, config);
-            em.SetComponentEnabled<CdTagLoadLevel>(entity, true);
+        public void LoadLevel() {
+            Contexts.GameData.IsNeedLoadLevel = false;
+            // TODO LoadScene to create a new level
         }
     }
 }

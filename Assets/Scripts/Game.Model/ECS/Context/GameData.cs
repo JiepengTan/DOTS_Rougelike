@@ -2,7 +2,24 @@
 using Unity.Mathematics;
 
 namespace GamesTan.ECS.Game {
+    public partial class InputData : IContext {
+        public bool HasMovement;
+        public int2 LastPos;
+        public int2 CurPos;
+    }
+    
+    [System.Serializable]
+    public partial struct LevelConfigData : IContext {
+        public uint RndSeed;
+        public int EnemyCount;
+        public int WallCount;
+        public int FoodCount;
+    }
+    
     public partial class GameData : IContext {
+
+        public bool IsNeedLoadLevel;
+        public long PlayerEntityId;
         private int _Food;
         public int Food {
             get => _Food;
@@ -12,13 +29,15 @@ namespace GamesTan.ECS.Game {
             }
         }
         
-        private int _Level;
-        public int Level {
+        private uint _Level;
+        public uint Level {
             get => _Level;
             set {
                 _Level = value;
                 EventUtil.Trigger(EGameEvent.CtxGameDataLevel,value);
             }
         }
+        
+        
     }
 }

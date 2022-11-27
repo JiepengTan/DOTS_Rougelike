@@ -18,9 +18,9 @@ namespace GamesTan.ECS.Game {
             var min = GameDefine.MinMapPos;
             var max = GameDefine.MaxMapPos;
             var em = EntityManager;
+            var config = Contexts.LevelConfigData;
             Entities.ForEach((Entity entity
                     , CdTagLoadLevel tag //标记是否需要加载场景
-                    , CdLevelLogicConfig config
                     , DynamicBuffer<CdPrefabPlayer> players
                     , DynamicBuffer<CdPrefabWall> walls
                     , DynamicBuffer<CdPrefabEnemy> enemies
@@ -32,23 +32,24 @@ namespace GamesTan.ECS.Game {
                     //var allPos = new NativeList<int2>();
                     var freeSlotCount = allPos.Length;
                     // create player
-                    CreateEntity(em,ecb, players, rnd, GameDefine.PlayerInitPos);
+                    var id = CreateEntity(em, ecb, players, rnd, GameDefine.PlayerInitPos, MapData.ETypePlayer);
+                    Contexts.GameData.PlayerEntityId = id;
                     // create enemy
                     for (int i = 0; i < config.EnemyCount; i++) {
-                        CreateEntity(em, ecb, enemies, rnd, allPos[--freeSlotCount]);
+                        CreateEntity(em, ecb, enemies, rnd, allPos[--freeSlotCount], MapData.ETypeEnemy);
                     }
 
                     // create wall
                     for (int i = 0; i < config.WallCount; i++) {
-                        CreateEntity(em,ecb, walls, rnd, allPos[--freeSlotCount]);
+                        CreateEntity(em, ecb, walls, rnd, allPos[--freeSlotCount], MapData.ETypeWall);
                     }
 
                     // create item
                     for (int i = 0; i < config.FoodCount; i++) {
-                        CreateEntity(em,ecb, items, rnd, allPos[--freeSlotCount]);
+                        CreateEntity(em, ecb, items, rnd, allPos[--freeSlotCount], MapData.ETypeItem);
                     }
 
-                    em.SetComponentEnabled<CdTagLoadLevel>(entity,false);
+                    ecb.DestroyEntity(entity);
                     allPos.Dispose();
                 }
             ).Run();
@@ -82,13 +83,14 @@ namespace GamesTan.ECS.Game {
         }
 
 
-        private static Entity CreateEntity<T>(EntityManager em, EntityCommandBuffer ecb, DynamicBuffer<T> buffer,
-            Random rnd, int2 pos)
+        private static long CreateEntity<T>(EntityManager em, EntityCommandBuffer ecb, DynamicBuffer<T> buffer,
+            Random rnd, int2 pos, int entityType)
             where T : unmanaged, IECSPrefabBufferElement {
             var prefab = buffer[rnd.NextInt(buffer.Length)].Prefab;
             var entity = ecb.Instantiate(prefab);
-            ecb.SetComponent(entity, new CdUnitRuntime(){EntityId = Contexts.GenId(),Pos = pos});
-            return entity;
+            var id= Contexts.GenId();
+            ecb.SetComponent(entity,new CdUnitRuntime() {EntityId = id, Pos = pos, EntityType = entityType});
+            return id;
         }
     }
 }

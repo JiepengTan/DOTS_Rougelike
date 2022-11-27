@@ -35,7 +35,7 @@ namespace GamesTan.Game.View {
         }
 
 
-        public void ShowLevelImage(int level) {
+        public void ShowLevelImage(uint level) {
             levelImage.enabled = true;
             levelText.text = "Day " + (level);
             levelText.enabled = true;

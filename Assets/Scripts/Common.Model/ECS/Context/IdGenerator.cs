@@ -1,4 +1,8 @@
 ﻿namespace GamesTan.ECS.Game {
+    public partial struct TickData : IContext {
+        public int Tick;
+    }
+
     public partial struct IdGenerator : IContext {
         public long sId;
         public void Reset() {

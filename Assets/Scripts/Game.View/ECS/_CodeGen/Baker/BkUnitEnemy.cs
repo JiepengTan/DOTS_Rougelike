@@ -5,7 +5,8 @@ namespace GamesTan.ECS.Game {
         public override void Bake(AuUnitEnemyg authoring) {
             AddComponent(GetEntity(), new CdUnitEnemy(){
                 Damage = authoring.Damage,
-                MoveInterval = authoring.MoveInterval,
+                MoveProbability = authoring.MoveProbability,
+                AttackProbability = authoring.AttackProbability,
                 AI = authoring.AI,
             });
         }

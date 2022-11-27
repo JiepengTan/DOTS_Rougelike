@@ -1,0 +1,3 @@
+﻿namespace GamesTan.ECS.Game {
+
+}

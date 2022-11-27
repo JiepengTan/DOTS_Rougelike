@@ -1,41 +1,65 @@
-﻿using Unity.Collections;
+﻿using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 
 namespace GamesTan.ECS.Game {
     public partial class MapData : IContext {
-        
-        public NativeHashMap<int2, int> pos2Type = new NativeHashMap<int2, int>();
+        public Dictionary<int2,int> pos2Type = new Dictionary<int2, int>();
 
         public const int ETypeNone = 0;
-        public const int ETypeRock = 1;
-        public const int ETypeFarm = 2;
-        public const int ETypePlant = 3;
-        public const int ETypeStore = 4;
+        public const int ETypeWall = 1;
+        public const int ETypePlayer = 2;
+        public const int ETypeEnemy = 3;
+        public const int ETypeItem = 4;
+        public const int ETypeExit = 5;
 
 
-        public bool IsNone(int2 pos) => pos2Type[pos] == ETypeNone;
-        public bool IsRock(int2 pos) => pos2Type[pos] == ETypeRock;
-        public bool IsFarm(int2 pos) => pos2Type[pos] == ETypeFarm;
-        public bool IsPlant(int2 pos) => pos2Type[pos] == ETypePlant;
-        public bool IsStore(int2 pos) => pos2Type[pos] == ETypeStore;
+        public bool IsNone(int2 pos) =>GetTile(pos) == ETypeNone;
+        public bool IsWall(int2 pos) => GetTile(pos) == ETypeWall;
+        public bool IsPlayer(int2 pos) => GetTile(pos) == ETypePlayer;
+        public bool IsItem(int2 pos) =>GetTile(pos) == ETypeItem;
+        public bool IsEnemy(int2 pos) => GetTile(pos) == ETypeEnemy;
 
         public bool IsNone(int val) => val == ETypeNone;
-        public bool IsRock(int val) => val == ETypeRock;
-        public bool IsFarm(int val) => val == ETypeFarm;
-        public bool IsPlant(int val) => val == ETypePlant;
-        public bool IsStore(int val) => val == ETypeStore;
+        public bool IsWall(int val) => val == ETypeWall;
+        public bool IsPlayer(int val) => val == ETypePlayer;
+        public bool IsItem(int val) => val == ETypeItem;
+        public bool IsEnemy(int val) => val == ETypeEnemy;
+        public void SetNone(int2 pos) => SetTile(pos,ETypeNone) ;
+        public void SetWall(int2 pos) => SetTile(pos,ETypeWall) ;
+        public void SetPlayer(int2 pos) => SetTile(pos,ETypePlayer);
+        public void SetItem(int2 pos) =>SetTile(pos,ETypeItem) ;
+        public void SetEnemy(int2 pos) => SetTile(pos,ETypeEnemy) ;
+        
 
+        public int GetTile(int x, int y ) => pos2Type[new int2(x, y)];
         public int GetTile(int2 pos) => pos2Type[pos];
+        public void SetTile(int2 pos, int type) => pos2Type[pos] = type;
+        public void SetTile(int x, int y, int type) => pos2Type[new int2(x, y)] = type;
+        public bool IsTile(int2 pos, int type) => pos2Type[pos] == type;
+        public bool IsTile(int x, int y, int type) => pos2Type[new int2(x, y)] == type;
+        public bool IsExit(int2 pos) =>  IsTile(pos,ETypeExit);
 
-        public void SetTile(int2 pos, int type) {
-            pos2Type[pos] = type;
+        public void ResetMap() {
+            for (int x = 0; x < GameDefine.MapSizeX; x++) {
+                for (int y = 0; y < GameDefine.MapSizeY; y++) {
+                    pos2Type[new int2(x, y)] = ETypeWall;
+                }
+            }
+            for (int x = 1; x < GameDefine.MapSizeX-1; x++) {
+                for (int y = 1; y < GameDefine.MapSizeY-1; y++) {
+                    pos2Type[new int2(x, y)] = ETypeNone;
+                }
+            }
+            pos2Type[GameDefine.PlayerExitPos] = ETypeWall;
         }
 
-        public void SetTile(int x, int y, int type) {
-            pos2Type[new int2(x, y)] = type;
-        }
+        public bool CanMove(int2 pos) => GetTile(pos) == ETypeNone || GetTile(pos) == ETypeExit;
 
-      
+        public void MoveTo(int type, int2 srcPos, int2 dstPos) {
+            SetTile(srcPos,ETypeNone); 
+            SetTile(dstPos,type);
+        }
     }
 }

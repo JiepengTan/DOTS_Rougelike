@@ -14,10 +14,10 @@ namespace GamesTan.ECS.Game {
             AddComponent(GetEntity(), new ComponentTypeSet(
                 new ComponentType[] {
                     // 下上面是生命期
-                    typeof(CdNeedAwake),
-                    typeof(CdNeedStart),
+                    typeof(CdTagAwake),
+                    typeof(CdTagStart),
                     // view 层相关属性
-                    typeof(CdNeedBindEntityView),
+                    typeof(CdTagBindEntityView),
                     typeof(CdEntityView),
                     typeof(CdCleanup),
                 }));

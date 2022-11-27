@@ -23,6 +23,10 @@ namespace GamesTan.ECS {
     [UpdateAfter(typeof(GameLogicGroup))]
     public partial class GameViewGroup : ComponentSystemGroup {
     }
+    [UpdateAfter(typeof(GameViewGroup))]
+    public partial class GameCleanupGroup : ComponentSystemGroup {
+    }
+
     
     // Logic 
     [UpdateInGroup(typeof(GameLogicGroup))]
@@ -51,5 +55,11 @@ namespace GamesTan.ECS {
     [UpdateInGroup(typeof(GameViewGroup))]
     [UpdateAfter(typeof(ViewUpdateGroup))]
     public partial class ViewCleanUpGroup : SceneSelectorGroup {
+    }
+    
+    
+    [UpdateInGroup(typeof(GameCleanupGroup))]
+    [UpdateAfter(typeof(ViewCleanUpGroup))]
+    public partial class FrameCleanUpGroup : SceneSelectorGroup {
     }
 }

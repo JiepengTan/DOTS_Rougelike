@@ -3,7 +3,10 @@
 namespace GamesTan.ECS.Game {
     public partial class AuUnitEnemyg : MonoAuthoring { 
         [Range(0,1.0f)]
-        public float MoveInterval;
+        public float MoveProbability =0.5f;
+        [Range(0,1.0f)]
+        public float AttackProbability = 0.5f;
+        
         public int Damage;
         public int AI;
         

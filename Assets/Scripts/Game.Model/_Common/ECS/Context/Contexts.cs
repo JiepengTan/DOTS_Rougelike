@@ -7,13 +7,16 @@ namespace GamesTan.ECS.Game {
         public static void SetContexts(GameContexts contexts) {
             _curContexts = contexts;
         }
-        public static long GenId() => IdGenerator.GenId();
-        public static void ResetId() => IdGenerator.Reset();
+        public static long GenId() => _curContexts.IdGenerator.GenId();
+        public static void ResetId() => _curContexts.IdGenerator.Reset();
         public static void ResetRandom(uint seed) { Random = new Random(seed); }
+        
+        public static ref Random Random => ref _curContexts.Random;
+        public static int Tick {
+            get => _curContexts.TickData.Tick;
+            set => _curContexts.TickData.Tick = value;
+        }
     }
-    public partial class Contexts {
-        private static ref IdGenerator IdGenerator => ref _curContexts.IdGenerator;
-        public static ref Random Random=> ref _curContexts.Random;
-    }
+
 
 }

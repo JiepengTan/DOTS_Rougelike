@@ -10,10 +10,10 @@ namespace GamesTan.Game.View {
 
             if (horizontal != 0 || vertical != 0) {
                 var movement = ToMovement(horizontal, vertical);
-                InputLayer.Movement = movement;
+                InputLayer.MoveDir = movement;
             }
             else {
-                InputLayer.Movement = EMovement.None;
+                InputLayer.MoveDir = EMoveDir.None;
             }
         }
 
@@ -22,16 +22,16 @@ namespace GamesTan.Game.View {
                 Input.GetAxisRaw("Vertical"));
         }
 
-        static EMovement ToMovement(int x, int y) {
+        static EMoveDir ToMovement(int x, int y) {
             // only allow 1 direction, prioritize horizontal over vertical
             if (x != 0) {
-                return x > 0 ? EMovement.Right : EMovement.Left;
+                return x > 0 ? EMoveDir.Right : EMoveDir.Left;
             }
             else if (y != 0) {
-                return y > 0 ? EMovement.Up : EMovement.Down;
+                return y > 0 ? EMoveDir.Up : EMoveDir.Down;
             }
 
-            return EMovement.Up;
+            return EMoveDir.Up;
         }
 
 

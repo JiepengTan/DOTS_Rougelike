@@ -2,8 +2,9 @@
 
 namespace GamesTan.ECS.Game {
     [UpdateInGroup(typeof(LogicUpdateGroup))]
+    [UpdateAfter(typeof(SysUnitAwake))]
     [RequireMatchingQueriesForUpdate]
-    public partial class SysUnitAwake : GameSystemBase {
+    public partial class SysUnitStart : GameSystemBase {
         private BeginSimulationEntityCommandBufferSystem m_BeginSimECBSystem;
 
         protected override void OnCreate() {
@@ -13,10 +14,9 @@ namespace GamesTan.ECS.Game {
         protected override void OnUpdate() {
             var ecb = m_BeginSimECBSystem.CreateCommandBuffer();
             Entities.ForEach(
-                (Entity entity, CdNeedAwake tag, ref CdUnitRuntime runtimeInfo, in CdUnitConfig configInfo) => {
-                    ecb.SetComponentEnabled(entity, typeof(CdNeedAwake), false);
-                    runtimeInfo.Health = configInfo.Health;
-                    //这里处理 Awake 逻辑
+                (Entity entity, CdTagStart tag, ref CdUnitRuntime runtimeInfo, in CdUnitConfig configInfo) => {
+                    ecb.SetComponentEnabled(entity, typeof(CdTagStart), false);
+                    //这里处理 Start 逻辑
                     //...
                 }).Run();
         }
