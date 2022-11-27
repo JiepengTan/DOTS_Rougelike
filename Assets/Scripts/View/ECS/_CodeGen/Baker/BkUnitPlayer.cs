@@ -11,28 +11,4 @@ namespace GamesTan.ECS.Game {
             });
         }
     }
-    public partial class BkUnitItem : Baker<AuUnitItem> {
-        public override void Bake(AuUnitItem authoring) {
-            AddComponent(GetEntity(), new CdUnitItem(){
-                Health = authoring.Health,});
-        }
-    }
-    public partial class BkUnitWall : Baker<AuUnitWall> {
-        public override void Bake(AuUnitWall authoring) {
-            AddComponent(GetEntity(), new CdUnitWall(){
-                Health = authoring.Health,
-            });
-        }
-    }
-    public partial class BkUnitEnemy : Baker<AuUnitEnemyg> {
-        public override void Bake(AuUnitEnemyg authoring) {
-            AddComponent(GetEntity(), new CdUnitEnemy(){
-                Health = authoring.Health,
-                Damage = authoring.Damage,
-                MoveInterval = authoring.MoveInterval,
-                AI = authoring.AI,
-                
-            });
-        }
-    }
 }

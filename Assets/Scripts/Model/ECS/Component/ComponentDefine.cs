@@ -1,5 +1,7 @@
 ﻿using Unity.Mathematics;
 using Entity = Unity.Entities.Entity;
+using RangeAttribute = UnityEngine.RangeAttribute;
+
 namespace GamesTan.ECS.Game {
     public partial struct CdAssetInfo : IECSComponent {
         public long AssetId;
@@ -24,6 +26,7 @@ namespace GamesTan.ECS.Game {
 
     public partial struct CdUnitEnemy : IECSAutoGenComponent {
         public int Health;
+        [Range(0,1.0f)]
         public float MoveInterval;
         public int Damage;
         public int AI;
