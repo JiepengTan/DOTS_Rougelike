@@ -1,4 +1,5 @@
 ﻿using System;
+using GamesTan.ECS.Game;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,14 +9,21 @@ namespace GamesTan.Game.View {
         public Text levelText;
 
         public Text label;
-
-        public float displayDelay = 1f;
         public float hideDelay = 2f;
-        int currentLevel;
         int food;
 
         public void Start() {
-            ShowLevelImage(1);
+            ShowLevelImage(Contexts.GameData.Level);
+            // TODO auto register 
+            EventUtil.AddListener(EGameEvent.CtxGameDataFood,OnEvent_CtxGameDataFood);
+            EventUtil.AddListener(EGameEvent.CtxGameDataLevel,OnEvent_CtxGameDataLevel);
+        }
+
+        private void OnEvent_CtxGameDataFood(object value) {
+            UpdateFood(Contexts.GameData.Food);
+        }
+        private void OnEvent_CtxGameDataLevel(object level) {
+            ShowLevelImage(Contexts.GameData.Level);
         }
 
         public void UpdateFood(int newFood) {
@@ -26,17 +34,17 @@ namespace GamesTan.Game.View {
             food = newFood;
         }
 
+
         public void ShowLevelImage(int level) {
-            currentLevel = level;
             levelImage.enabled = true;
-            levelText.text = "Day " + currentLevel;
+            levelText.text = "Day " + (level);
             levelText.enabled = true;
             Invoke("HideLevelImage", hideDelay);
         }
 
-        public void ShowGameOver() {
+        public void ShowGameOver(int level) {
             levelImage.enabled = true;
-            levelText.text = "After " + currentLevel + " days, you starved.";
+            levelText.text = "After " + level + " days, you starved.";
             levelText.enabled = true;
         }
 

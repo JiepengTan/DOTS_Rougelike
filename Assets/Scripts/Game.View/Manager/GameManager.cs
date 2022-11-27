@@ -12,7 +12,8 @@ namespace GamesTan.Game.View {
 
         public CdLevelLogicConfig Config;
 
-        void Start() {
+        public override void DoAwake() {
+            base.DoAwake();
             Debug.Log("Starting GameController using seed " + randomSeed);
             Contexts.ResetId();
             Contexts.ResetRandom(randomSeed);

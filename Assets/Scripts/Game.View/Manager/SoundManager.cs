@@ -7,9 +7,7 @@ namespace GamesTan.Game.View {
         public float lowPitchRange = .95f;
         public float highPitchRange = 1.05f;
 
-
-
-        private void PlayAudio(string audioName, bool randomizePitch) {
+        public void PlayAudio(string audioName, bool randomizePitch) {
             var audioClip = Resources.Load<AudioClip>("Audio/" + audioName);
 
             if (audioClip != null) {
