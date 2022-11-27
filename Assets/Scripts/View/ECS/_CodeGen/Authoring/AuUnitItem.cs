@@ -1,5 +1,5 @@
 ﻿namespace GamesTan.ECS.Game {
-    public partial class UnitItemAuthoring : MonoAuthoring { 
+    public partial class AuUnitItem : MonoAuthoring { 
         public int Health;
     }
 }

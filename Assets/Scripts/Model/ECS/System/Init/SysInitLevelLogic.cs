@@ -23,12 +23,12 @@ namespace GamesTan.ECS.Game {
             var max = GameDefine.MaxMapPos;
             var em = EntityManager;
             Entities.ForEach((Entity entity
-                    , CTagLoadLevel tag //标记是否需要加载场景
-                    , CLevelLogicConfig config
-                    , DynamicBuffer<CPrefabPlayer> players
-                    , DynamicBuffer<CPrefabWall> walls
-                    , DynamicBuffer<CPrefabEnemy> enemies
-                    , DynamicBuffer<CPrefabItem> items
+                    , CdTagLoadLevel tag //标记是否需要加载场景
+                    , CdLevelLogicConfig config
+                    , DynamicBuffer<CdPrefabPlayer> players
+                    , DynamicBuffer<CdPrefabWall> walls
+                    , DynamicBuffer<CdPrefabEnemy> enemies
+                    , DynamicBuffer<CdPrefabItem> items
                 ) => {
                     var seed = config.RndSeed;
                     var rnd = new Random(seed);
@@ -52,7 +52,7 @@ namespace GamesTan.ECS.Game {
                         CreateEntity(em,ecb, items, rnd, allPos[--freeSlotCount]);
                     }
 
-                    em.SetComponentEnabled<CTagLoadLevel>(entity,false);
+                    em.SetComponentEnabled<CdTagLoadLevel>(entity,false);
                     allPos.Dispose();
                 }
             ).Run();
@@ -88,10 +88,10 @@ namespace GamesTan.ECS.Game {
 
         private static Entity CreateEntity<T>(EntityManager em, EntityCommandBuffer ecb, DynamicBuffer<T> buffer,
             Random rnd, int2 pos)
-            where T : unmanaged, IPrefabBufferElement {
+            where T : unmanaged, IECSPrefabBufferElement {
             var prefab = buffer[rnd.NextInt(buffer.Length)].Prefab;
             var entity = ecb.Instantiate(prefab);
-            ecb.SetComponent(entity, new CBaseUnit(){EntityId = Contexts.GameData.GenId(),Pos = pos});
+            ecb.SetComponent(entity, new CdBaseUnit(){EntityId = Contexts.GameData.GenId(),Pos = pos});
             return entity;
         }
     }

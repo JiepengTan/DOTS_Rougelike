@@ -13,7 +13,7 @@ namespace GamesTan.ECS.Game {
             }
             return ary;
         }
-        public static void CreateBuffer<T>(this IBaker self,  List<GameObject> prefabs)where T :unmanaged, IPrefabBufferElement {
+        public static void CreateBuffer<T>(this IBaker self,  List<GameObject> prefabs)where T :unmanaged, IECSPrefabBufferElement {
             var buffer = self.SetBuffer<T>();
             foreach (var prefab in prefabs)
             {

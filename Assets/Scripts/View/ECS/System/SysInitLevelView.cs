@@ -19,9 +19,9 @@ namespace GamesTan.ECS.Game {
         protected override void OnUpdate() {
             var ecb = m_BeginSimECBSystem.CreateCommandBuffer();
             var mapSize = GameDefine.MapSize;
-            Entities.ForEach((Entity entity, CLevelViewConfig config
-                ,DynamicBuffer<CPrefabFloor> floors
-                ,DynamicBuffer<CPrefabOutWall> outwalls
+            Entities.ForEach((Entity entity, CdLevelViewConfig config
+                ,DynamicBuffer<CdPrefabFloor> floors
+                ,DynamicBuffer<CdPrefabOutWall> outwalls
                 ) => {
                 var rnd = new Random(config.RndSeed);
                 {

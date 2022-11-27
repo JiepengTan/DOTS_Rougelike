@@ -1,21 +1,21 @@
 ﻿using Unity.Entities;
 
 namespace GamesTan.ECS.Game {
-    public partial class LevelViewConfigBaker : Baker<LevelViewConfigAuthoring> {
+    public partial class BkLevelViewConfig : Baker<LevelViewConfigAuthoring> {
         public override void Bake(LevelViewConfigAuthoring authoring) {
             AddComponent(GetEntity(), new ComponentTypeSet(
                 new ComponentType[] {
-                    typeof(CLevelViewConfig),
-                    typeof(CPrefabFloor),
-                    typeof(CPrefabOutWall),
+                    typeof(CdLevelViewConfig),
+                    typeof(CdPrefabFloor),
+                    typeof(CdPrefabOutWall),
                 }));
-            var config = new CLevelViewConfig() {
+            var config = new CdLevelViewConfig() {
                 ExitPrefab = this.GetEntity(authoring.PrefabExit),
                 RndSeed = authoring.RandomSeed
             };
             SetComponent(GetEntity(), config);
-            this.CreateBuffer<CPrefabOutWall >(authoring.PrefabOutWall);
-            this.CreateBuffer<CPrefabFloor>(authoring.PrefabFloor);
+            this.CreateBuffer<CdPrefabOutWall >(authoring.PrefabOutWall);
+            this.CreateBuffer<CdPrefabFloor>(authoring.PrefabFloor);
         }
     }
 }

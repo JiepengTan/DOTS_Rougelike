@@ -9,7 +9,7 @@ namespace GamesTan.ECS.Game.View {
         public uint randomSeed = 42;
 
 
-        public CLevelLogicConfig Config;
+        public CdLevelLogicConfig Config;
 
         void Start() {
             Debug.Log("Starting GameController using seed " + randomSeed);
@@ -18,11 +18,11 @@ namespace GamesTan.ECS.Game.View {
         }
 
 
-        public void LoadLevel(CLevelLogicConfig config) {
+        public void LoadLevel(CdLevelLogicConfig config) {
             var em = World.DefaultGameObjectInjectionWorld.EntityManager;
-            var entity = SystemAPI.GetSingletonEntity<CLevelLogicConfig>();
+            var entity = SystemAPI.GetSingletonEntity<CdLevelLogicConfig>();
             em.SetComponentData(entity, config);
-            em.SetComponentEnabled<CTagLoadLevel>(entity, true);
+            em.SetComponentEnabled<CdTagLoadLevel>(entity, true);
         }
     }
 }
