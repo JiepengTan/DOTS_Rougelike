@@ -2,10 +2,7 @@
 using UnityEngine;
 
 namespace GamesTan.Game.View {
-
     public class InputManager : BaseMonoManager<InputManager> {
-        Vector2 touchOrigin = -Vector2.one;
-
         void Update() {
             var moveVector = GetInput();
             int horizontal = Mathf.RoundToInt(moveVector.x);
@@ -14,6 +11,9 @@ namespace GamesTan.Game.View {
             if (horizontal != 0 || vertical != 0) {
                 var movement = ToMovement(horizontal, vertical);
                 InputLayer.Movement = movement;
+            }
+            else {
+                InputLayer.Movement = EMovement.None;
             }
         }
 
