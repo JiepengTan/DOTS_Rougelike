@@ -6,9 +6,6 @@ namespace GamesTan.ECS.Game {
     public partial class LevelViewConfigAuthoring : MonoAuthoring {
         public List<GameObject> PrefabOutWall = new List<GameObject>();
         public List<GameObject> PrefabFloor = new List<GameObject>();
-        public GameObject PrefabExit;
-
-        public Vector2Int MapSize = new Vector2Int(10, 10);
         public uint RandomSeed;
     }
     
@@ -21,7 +18,6 @@ namespace GamesTan.ECS.Game {
                     typeof(CdPrefabOutWall),
                 }));
             var config = new CdLevelViewConfig() {
-                ExitPrefab = this.GetEntity(authoring.PrefabExit),
                 RndSeed = authoring.RandomSeed
             };
             SetComponent(GetEntity(), config);

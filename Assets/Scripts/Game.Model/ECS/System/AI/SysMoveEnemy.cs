@@ -17,10 +17,10 @@ namespace GamesTan.ECS.Game {
             float dt = SystemAPI.Time.DeltaTime;
             var inputVal = InputLayer.MoveDir;
             var ecb = m_BeginSimECBSystem.CreateCommandBuffer();
-            if (Contexts.InputData.HasMovement) return;
             var playerPos = Contexts.InputData.CurPos;
             var tick = Contexts.Tick;
             var playerEntityId = Contexts.GameData.PlayerEntityId;
+            if (!Contexts.InputData.HasMovement) return;
             Entities.ForEach(
                     (ref CdUnitRuntime runtimeInfo, ref CdUnitEnemy unit) => {
                         var srcPos = runtimeInfo.Pos;

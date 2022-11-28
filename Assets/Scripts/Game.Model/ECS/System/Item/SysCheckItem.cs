@@ -7,7 +7,6 @@ namespace GamesTan.ECS.Game {
     [RequireMatchingQueriesForUpdate]
     public partial class SysCheckItem : GameSystemBase {
         protected override void OnUpdate() {
-            var em = EntityManager;
             Entities.ForEach(
                 (Entity entity, ref CdUnitRuntime runtimeInfo, in CdUnitItem unit) => {
                     var playerPos = Contexts.InputData.CurPos;

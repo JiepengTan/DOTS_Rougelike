@@ -38,4 +38,6 @@ namespace GamesTan.ECS.Game {
 
     public partial struct CdUnitItem : IECSAutoGenComponent {
     }
+    public partial struct CdUnitExit: IECSAutoGenComponent {
+    }
 }

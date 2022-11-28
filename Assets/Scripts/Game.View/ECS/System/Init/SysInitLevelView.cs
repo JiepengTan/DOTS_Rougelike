@@ -69,13 +69,6 @@ namespace GamesTan.ECS.Game {
                         }
                     }
                 }
-                {
-                    // create exit
-                    var instance = ecb.Instantiate(config.ExitPrefab);
-                    ecb.SetComponent(instance,
-                        new LocalToWorldTransform
-                            {Value = UniformScaleTransform.FromPosition(new float3(GameDefine.PlayerExitPos, 0))});
-                }
                 ecb.DestroyEntity(entity);
             }).Schedule();
             m_BeginSimECBSystem.AddJobHandleForProducer(Dependency);

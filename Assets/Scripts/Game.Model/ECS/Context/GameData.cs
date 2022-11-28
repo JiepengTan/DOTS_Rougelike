@@ -17,10 +17,17 @@ namespace GamesTan.ECS.Game {
     }
     
     public partial class GameData : IContext {
+        public enum EState {
+            None,
+            Playing,
+            Win,
+            Failed
+        }
 
         public bool IsNeedLoadLevel;
         public long PlayerEntityId;
         private int _Food;
+        public EState State = EState.None;
         public int Food {
             get => _Food;
             set {

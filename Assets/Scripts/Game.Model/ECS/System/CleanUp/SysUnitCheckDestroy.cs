@@ -14,10 +14,11 @@ namespace GamesTan.ECS.Game {
             var ecb = m_BeginSimECBSystem.CreateCommandBuffer();
             var em = EntityManager;
             //绑定view层，需要运行再主线程上，方便各种
-            Entities.ForEach((Entity entity,CdUnitRuntime unit,CdEntityView view,CdCleanup cleanupTag) => {
+            Entities.ForEach((Entity entity,CdUnitRuntime unit) => {
                 if (unit.Health <= 0) {
                     ecb.DestroyEntity(entity);
-                    ecb.AddComponent(entity, new CdDestroyView(){ViewId =  view.ViewId});
+                    var instance =ecb.CreateEntity();
+                    ecb.AddComponent(instance,new CdDestroyView(){EntityId =  unit.EntityId});
                 }
             }).Run();
         }

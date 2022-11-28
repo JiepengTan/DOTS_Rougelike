@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9157020926811299442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9157020926811299443}
+  - component: {fileID: 9157020926811299452}
+  m_Layer: 0
+  m_Name: LoadViewConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9157020926811299443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9157020926811299442}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9157020926811299452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9157020926811299442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf4544cd369049f3a2d9bfb6f09cab84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrefabOutWall:
+  - {fileID: 110520, guid: 7094f72151ec74f569c4e03f1ec0f8e7, type: 3}
+  - {fileID: 110520, guid: b0ace21a29149403094422fb3bd96aa9, type: 3}
+  - {fileID: 110520, guid: e85c94355cc4641da919bd5d0ac956d4, type: 3}
+  PrefabFloor:
+  - {fileID: 106160, guid: 038998774947c4a8fa170d5b4492a7dd, type: 3}
+  - {fileID: 137908, guid: 41775b29042354678bcd58bb1a75871e, type: 3}
+  - {fileID: 125636, guid: 74398dca0c1f64f34aab8ba7bdb6c527, type: 3}
+  - {fileID: 177044, guid: ed4c829589732490894350b134530050, type: 3}
+  - {fileID: 109612, guid: 04993e7a7b0514f0c8857ff106529ce1, type: 3}
+  - {fileID: 127736, guid: 4cdf8ac85eff446d0a8fefbdc8c6569f, type: 3}
+  - {fileID: 110520, guid: 5535fd6cd705e4a79a1d5a4f114de5dc, type: 3}
+  - {fileID: 110520, guid: c18e9692903814865aa9a855aaa66df5, type: 3}
+  RandomSeed: 11

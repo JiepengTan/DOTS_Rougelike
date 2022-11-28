@@ -15,4 +15,8 @@ namespace GamesTan.ECS.Game {
         public long SufferId;
         public int Damage;
     }
+    public partial struct CdEventGameWin : IECSComponent {
+    }
+    public partial struct CdEventGameFailed : IECSComponent {
+    }
 }

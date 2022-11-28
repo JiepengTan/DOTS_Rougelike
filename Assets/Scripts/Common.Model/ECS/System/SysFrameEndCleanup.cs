@@ -15,7 +15,7 @@ namespace GamesTan.ECS.Game {
             Entities.ForEach(
                 (Entity entity, CdTagCleanupInFrameEnd tag) => {
                     ecb.DestroyEntity(entity);
-                }).Schedule();
+                }).Run();
         }
     }
 }

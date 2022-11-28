@@ -24,5 +24,15 @@ namespace GamesTan.Game.View {
 
             return null;
         }
+
+        public void DestroyAll() {
+            foreach (var pair in _id2View) {
+                var view = pair.Value;
+                if (view != null) {
+                    GameObject.Destroy(view.gameObject);
+                }
+            }
+            _id2View.Clear();
+        }
     }
 }

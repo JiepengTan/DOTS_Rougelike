@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8601006575097099751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8601006575097099748}
+  - component: {fileID: 8601006575097099749}
+  m_Layer: 0
+  m_Name: LoadLogicConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8601006575097099748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8601006575097099751}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8601006575097099749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8601006575097099751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534e405fada84ecd8a6750b912744045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrefabPlayer:
+  - {fileID: 7036965170405090701, guid: 54af5a44cd96e874fbd375086164358e, type: 3}
+  PrefabWall:
+  - {fileID: 2064014958139169241, guid: f9cf03286ee132248b2fc46e6a2654d8, type: 3}
+  - {fileID: 3273683712528812724, guid: a8133c45a6403b64a924b3e38b23fec5, type: 3}
+  PrefabEnemy:
+  - {fileID: 3044816818777625476, guid: 68e03ff0526297b4f801ce8b94fa779c, type: 3}
+  - {fileID: 3980886278711590082, guid: e813bfed6dbb82e4aab2368fcd2653af, type: 3}
+  PrefabItem:
+  - {fileID: 2064014958139169241, guid: 94bc6e05b6cb4694aa7ae465e762268b, type: 3}
+  - {fileID: 134151456144897024, guid: fe0d0c6cf2fb25347a889d92f0183e3f, type: 3}
+  PrefabExit: {fileID: 1903399253325856990, guid: 368e7a9ea7127b94a890710dbb1631ef,
+    type: 3}

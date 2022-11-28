@@ -18,8 +18,6 @@ namespace GamesTan.ECS.Game {
                     typeof(CdTagStart),
                     // view 层相关属性
                     typeof(CdTagBindEntityView),
-                    typeof(CdEntityView),
-                    typeof(CdCleanup),
                 }));
             
             // 游戏相关的

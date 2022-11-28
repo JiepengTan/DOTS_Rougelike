@@ -18,34 +18,39 @@ namespace GamesTan.ECS.Game {
             var min = GameDefine.MinMapPos;
             var max = GameDefine.MaxMapPos;
             var em = EntityManager;
-            var config = Contexts.LevelConfigData;
+            var gameConfig = Contexts.LevelConfigData;
+            
             Entities.ForEach((Entity entity
-                    , CdTagLoadLevel tag //标记是否需要加载场景
+                    , CdLevelLogicConfig config //标记是否需要加载场景
                     , DynamicBuffer<CdPrefabPlayer> players
                     , DynamicBuffer<CdPrefabWall> walls
                     , DynamicBuffer<CdPrefabEnemy> enemies
                     , DynamicBuffer<CdPrefabItem> items
                 ) => {
-                    var seed = config.RndSeed;
-                    var rnd = new Random(seed);
-                    var allPos = GetFreeSlotList(seed, min, max, ref rnd);
+                    Contexts.GameData.State = GameData.EState.Playing;
+                    ref var rnd =ref Contexts.Random;
+                    var allPos = GetFreeSlotList( min, max, ref rnd);
                     //var allPos = new NativeList<int2>();
                     var freeSlotCount = allPos.Length;
                     // create player
                     var id = CreateEntity(em, ecb, players, rnd, GameDefine.PlayerInitPos, MapData.ETypePlayer);
                     Contexts.GameData.PlayerEntityId = id;
+                    Contexts.InputData.CurPos = GameDefine.PlayerInitPos;
+                    Contexts.InputData.LastPos = GameDefine.PlayerInitPos;
+                    // create exit
+                    CreateEntity(ecb, config.ExitPrefab,  GameDefine.PlayerExitPos, MapData.ETypeExit);
                     // create enemy
-                    for (int i = 0; i < config.EnemyCount; i++) {
+                    for (int i = 0; i < gameConfig.EnemyCount; i++) {
                         CreateEntity(em, ecb, enemies, rnd, allPos[--freeSlotCount], MapData.ETypeEnemy);
                     }
 
                     // create wall
-                    for (int i = 0; i < config.WallCount; i++) {
+                    for (int i = 0; i < gameConfig.WallCount; i++) {
                         CreateEntity(em, ecb, walls, rnd, allPos[--freeSlotCount], MapData.ETypeWall);
                     }
 
                     // create item
-                    for (int i = 0; i < config.FoodCount; i++) {
+                    for (int i = 0; i < gameConfig.FoodCount; i++) {
                         CreateEntity(em, ecb, items, rnd, allPos[--freeSlotCount], MapData.ETypeItem);
                     }
 
@@ -56,7 +61,7 @@ namespace GamesTan.ECS.Game {
             m_BeginSimECBSystem.AddJobHandleForProducer(Dependency);
         }
 
-        private static NativeList<int2> GetFreeSlotList(uint seed, int2 min, int2 max, ref Random rnd) {
+        private static NativeList<int2> GetFreeSlotList( int2 min, int2 max, ref Random rnd) {
             var allPos = new NativeList<int2>(GameDefine.FreeSlotSize, Allocator.Temp);
             int idx = 0;
             for (int x = min.x; x <= max.x; x++) {
@@ -87,9 +92,13 @@ namespace GamesTan.ECS.Game {
             Random rnd, int2 pos, int entityType)
             where T : unmanaged, IECSPrefabBufferElement {
             var prefab = buffer[rnd.NextInt(buffer.Length)].Prefab;
+            return CreateEntity(ecb,prefab, pos, entityType);
+        }
+
+        private static long CreateEntity(EntityCommandBuffer ecb,Entity prefab, int2 pos, int entityType ) {
             var entity = ecb.Instantiate(prefab);
-            var id= Contexts.GenId();
-            ecb.SetComponent(entity,new CdUnitRuntime() {EntityId = id, Pos = pos, EntityType = entityType});
+            var id = Contexts.GenId();
+            ecb.SetComponent(entity, new CdUnitRuntime() {EntityId = id, Pos = pos, EntityType = entityType});
             return id;
         }
     }

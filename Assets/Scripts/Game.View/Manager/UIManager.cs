@@ -17,8 +17,20 @@ namespace GamesTan.Game.View {
             // TODO auto register 
             EventUtil.AddListener(EGameEvent.CtxGameDataFood,OnEvent_CtxGameDataFood);
             EventUtil.AddListener(EGameEvent.CtxGameDataLevel,OnEvent_CtxGameDataLevel);
+            
+            EventUtil.AddListener(EGameEvent.GameEventWin,OnEvent_GameEventWin);
+            EventUtil.AddListener(EGameEvent.GameEventFailed,OnEvent_GameEventFailed);
+            food = Contexts.GameData.Food;
+            UpdateFood(Contexts.GameData.Food);
         }
 
+        private void OnEvent_GameEventWin(object _) {
+        }
+
+        private void OnEvent_GameEventFailed(object _) {
+            ShowGameOver(Contexts.GameData.Level);
+        }
+        
         private void OnEvent_CtxGameDataFood(object value) {
             UpdateFood(Contexts.GameData.Food);
         }
@@ -42,7 +54,7 @@ namespace GamesTan.Game.View {
             Invoke("HideLevelImage", hideDelay);
         }
 
-        public void ShowGameOver(int level) {
+        public void ShowGameOver(uint level) {
             levelImage.enabled = true;
             levelText.text = "After " + level + " days, you starved.";
             levelText.enabled = true;

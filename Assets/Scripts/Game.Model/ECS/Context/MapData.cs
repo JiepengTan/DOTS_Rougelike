@@ -52,10 +52,9 @@ namespace GamesTan.ECS.Game {
                     pos2Type[new int2(x, y)] = ETypeNone;
                 }
             }
-            pos2Type[GameDefine.PlayerExitPos] = ETypeWall;
         }
 
-        public bool CanMove(int2 pos) => GetTile(pos) == ETypeNone || GetTile(pos) == ETypeExit;
+        public bool CanMove(int2 pos) => IsNone(pos)|| IsItem(pos)|| IsExit(pos) ;
 
         public void MoveTo(int type, int2 srcPos, int2 dstPos) {
             SetTile(srcPos,ETypeNone); 

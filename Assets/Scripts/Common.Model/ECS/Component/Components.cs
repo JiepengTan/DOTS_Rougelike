@@ -5,9 +5,6 @@
     }
     public partial struct CdTagBindEntityView : IECSEnableableComponent {
     }
-    public partial struct CdEntityView : IECSComponent {
-        public long ViewId;
-    }
     public partial struct CdTagCleanupInFrameEnd : IECSEnableableComponent {
     }
 }
