@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 410520}
   - component: {fileID: 21210520}
+  - component: {fileID: 1010004053109300173}
+  - component: {fileID: 4201235125894144643}
   m_Layer: 0
   m_Name: 1042_Soda
   m_TagString: Soda
@@ -84,3 +86,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1010004053109300173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1af2a7380711a48b94edb5c2d584f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Clips: []
+--- !u!114 &4201235125894144643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1af2a7380711a48b94edb5c2d584f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Clips:
+  - {fileID: 8300000, guid: b6b608537288246c9a464915db27bf52, type: 3}
+  - {fileID: 8300000, guid: bcb9dda73ee914d3e8f252895f73f461, type: 3}

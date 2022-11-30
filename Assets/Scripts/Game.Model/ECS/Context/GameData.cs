@@ -24,6 +24,7 @@ namespace GamesTan.ECS.Game {
             Failed
         }
 
+        public bool IsPlaying => State == EState.Playing;
         public bool IsNeedLoadLevel;
         public long PlayerEntityId;
         private int _Food;

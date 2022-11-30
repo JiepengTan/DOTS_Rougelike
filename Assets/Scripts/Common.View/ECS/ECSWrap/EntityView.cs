@@ -19,6 +19,7 @@ namespace GamesTan.Game.View {
         public void ShowAttack(int tick) {
             if (anim != null) {
                 anim.SetTrigger("Attack");
+                SoundManager.Instance.PlayAudio("scavengers_enemy1",true);
             }
         }
         public void ShowHited(int tick) {

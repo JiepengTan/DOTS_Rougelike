@@ -23,12 +23,14 @@ namespace GamesTan.ECS.Game {
                         Contexts.GameData.State = GameData.EState.Win;
                         var instance = ecb.CreateEntity();
                         ecb.AddComponent(instance, new CdEventGameWin() { });
+                        ecb.AddComponent(instance, new CdTagCleanupInFrameEnd() { } );
                         return;
                     }
                     if (Contexts.GameData.Food < 0) {
                         Contexts.GameData.State = GameData.EState.Failed;
                         var instance = ecb.CreateEntity();
                         ecb.AddComponent(instance, new CdEventGameFailed());
+                        ecb.AddComponent(instance, new CdTagCleanupInFrameEnd() { } );
                         return;
                     }
                 }).Run();

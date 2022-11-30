@@ -24,6 +24,10 @@ namespace GamesTan.Game.View {
             StartGame();
         }
 
+        private void Start() {
+            SoundManager.Instance.PlayerMusic();
+        }
+
         private void StartGame() {
             Contexts.SetContexts(new GameContexts());
             Contexts.ResetId();
@@ -31,6 +35,7 @@ namespace GamesTan.Game.View {
             Contexts.ResetRandom(45);
             Contexts.GameData.Food = InitFood;
             TryLoadNextLevel();
+            
         }
 
 
@@ -49,6 +54,7 @@ namespace GamesTan.Game.View {
         private void OnEvent_GameEventFailed(object _) {
             Debug.Log("GameFailed");
             Invoke("StartGame",3);
+            SoundManager.Instance.StopMusic();
         }
 
         static void TryLoadNextLevel() {

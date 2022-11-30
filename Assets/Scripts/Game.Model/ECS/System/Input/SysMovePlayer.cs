@@ -5,8 +5,15 @@ namespace GamesTan.ECS.Game {
     [UpdateInGroup(typeof(LogicUpdateGroup))]
     [UpdateAfter(typeof(SysGatherMapData))]
     [RequireMatchingQueriesForUpdate]
-    public partial class SysMovePlayer : GameSystemBase {
+    public partial class SysMovePlayer : GameSystemBase {  
+        private BeginSimulationEntityCommandBufferSystem m_BeginSimECBSystem;
+
+        protected override void OnCreate() {
+            m_BeginSimECBSystem = World.GetExistingSystemManaged<BeginSimulationEntityCommandBufferSystem>();
+        }
+
         protected override void OnUpdate() {
+            var ecb = m_BeginSimECBSystem.CreateCommandBuffer();
             float dt = SystemAPI.Time.DeltaTime;
             var inputVal = InputLayer.MoveDir;
             var em = EntityManager;
@@ -26,6 +33,9 @@ namespace GamesTan.ECS.Game {
                             Contexts.InputData.LastPos = srcPos;
                             Contexts.InputData.CurPos = dstPos;
                             Contexts.GameData.Food--;
+                            var instance = ecb.CreateEntity();
+                            ecb.AddComponent(instance, new CdTagCleanupInFrameEnd() { } );
+                            ecb.AddComponent(instance, new CdEventPlayerMoved() { } );
                         }
                     }
                 }).Run();

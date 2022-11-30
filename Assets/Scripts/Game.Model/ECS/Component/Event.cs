@@ -19,4 +19,6 @@ namespace GamesTan.ECS.Game {
     }
     public partial struct CdEventGameFailed : IECSComponent {
     }
+    public partial struct CdEventPlayerMoved : IECSComponent {
+    }
 }
