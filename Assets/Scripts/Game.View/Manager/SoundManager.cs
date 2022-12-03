@@ -36,6 +36,7 @@ namespace GamesTan.Game.View {
 
         public void PlayAudio(AudioClip clip, bool randomize = false) {
             if(clip == null) return;
+            if(efxSource == null) return;
             if(!Contexts.GameData.IsPlaying) return;
             efxSource.clip = clip;
 
