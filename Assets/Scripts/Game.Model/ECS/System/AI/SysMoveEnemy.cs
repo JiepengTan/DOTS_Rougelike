@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using static Unity.Mathematics.math;
 
 namespace GamesTan.ECS.Game {
-    [UpdateInGroup(typeof(FrameCleanUpGroup))]
+    [UpdateInGroup(typeof(LogicUpdateGroup))]
     [UpdateAfter(typeof(SysMovePlayer))]
     [RequireMatchingQueriesForUpdate]
     public partial class SysMoveEnemy : GameSystemBase {
