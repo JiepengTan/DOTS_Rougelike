@@ -1,7 +1,5 @@
-﻿using GamesTan.Game.View;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Mathematics;
-using UnityEngine;
 
 namespace GamesTan.ECS.Game {
     [UpdateInGroup(typeof(LogicCleanUpGroup))]

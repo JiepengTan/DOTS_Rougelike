@@ -13,7 +13,7 @@ namespace GamesTan.ECS.Game.View {
 
         protected override void OnUpdate() {
             var ecb = m_BeginSimECBSystem.CreateCommandBuffer();
-            Entities.ForEach((Entity entity,CdDestroyView view) => {
+            Entities.ForEach((Entity entity,CdUnbindDestroyView view) => {
                 ecb.DestroyEntity(entity);
                 // 销毁的逻辑
                 EntityViewManager.Instance.OnDestroyEntity(view.EntityId);

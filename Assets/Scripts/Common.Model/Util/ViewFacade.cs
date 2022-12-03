@@ -1,5 +1,4 @@
-﻿using GamesTan.ECS.Game.View;
-
+﻿
 namespace GamesTan.ECS {
     // 
     public partial class ViewFacade {

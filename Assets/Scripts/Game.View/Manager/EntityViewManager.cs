@@ -4,10 +4,10 @@ using UnityEngine;
 namespace GamesTan.Game.View {
     public class EntityViewManager : BaseManager<EntityViewManager> {
 
-        private Dictionary<long, EntityView> _id2View = new Dictionary<long, EntityView>();
+        private Dictionary<long, GameEntityView> _id2View = new Dictionary<long, GameEntityView>();
 
         public void OnCreateEntity(GameObject go, long entityId) {
-            var comp = go.AddComponent<EntityView>();
+            var comp = go.AddComponent<GameEntityView>();
             comp.EntityId = entityId;
             _id2View[entityId] = comp;
         }
@@ -17,7 +17,7 @@ namespace GamesTan.Game.View {
             }
         }
 
-        public EntityView GetEntityView(long entityId) {
+        public GameEntityView GetEntityView(long entityId) {
             if (_id2View.TryGetValue(entityId, out var binder)) {
                 return binder;
             }

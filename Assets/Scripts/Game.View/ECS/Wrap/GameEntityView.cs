@@ -4,9 +4,7 @@ using Unity.Entities;
 using UnityEngine;
 
 namespace GamesTan.Game.View {
-    public class EntityView: MonoBehaviour {
-        public long EntityId;
-
+    public class GameEntityView: BaseEntityView {
         private Animator anim;
         public void Awake() {
             anim = GetComponentInChildren<Animator>();

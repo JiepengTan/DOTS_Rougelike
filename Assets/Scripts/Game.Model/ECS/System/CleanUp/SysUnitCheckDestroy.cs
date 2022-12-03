@@ -18,7 +18,7 @@ namespace GamesTan.ECS.Game {
                 if (unit.Health <= 0) {
                     ecb.DestroyEntity(entity);
                     var instance =ecb.CreateEntity();
-                    ecb.AddComponent(instance,new CdDestroyView(){EntityId =  unit.EntityId});
+                    ecb.AddComponent(instance,new CdUnbindDestroyView(){EntityId =  unit.EntityId});
                 }
             }).Run();
         }

@@ -1,5 +1,4 @@
-﻿using GamesTan.Game.View;
-using Unity.Entities;
+﻿using Unity.Entities;
 
 namespace GamesTan.ECS.Game {
     [UpdateInGroup(typeof(FrameCleanUpGroup))]

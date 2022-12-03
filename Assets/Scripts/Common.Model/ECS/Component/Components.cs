@@ -3,8 +3,11 @@
     }
     public partial struct CdTagStart: IECSEnableableComponent {
     }
+    public partial struct CdTagCleanupInFrameEnd : IECSEnableableComponent {
+    }
     public partial struct CdTagBindEntityView : IECSEnableableComponent {
     }
-    public partial struct CdTagCleanupInFrameEnd : IECSEnableableComponent {
+    public partial struct CdUnbindDestroyView: IECSComponent {
+        public long EntityId;
     }
 }
