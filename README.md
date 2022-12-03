@@ -1,8 +1,6 @@
 
-![](Documentation/Images/Rougelike002.gif)
-
 # DOTS Rougelike
-<p align="center"><img src="Documentation/Images/Rougelike002.gif?raw=true" width="512"></p> 
+<p align="center"><img src="https://github.com/JiepengTan/DOTS_Rougelike/blob/main/Documents/Images/Rougelike002.gif?raw=true" width="512"></p> 
 
 
 
