@@ -10,7 +10,6 @@ namespace GamesTan.ECS.Game {
     
     [System.Serializable]
     public partial struct LevelConfigData : IContext {
-        public uint RndSeed;
         public int EnemyCount;
         public int WallCount;
         public int FoodCount;

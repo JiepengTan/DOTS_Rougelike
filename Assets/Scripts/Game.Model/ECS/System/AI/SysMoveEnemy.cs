@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using Unity.Entities;
 using Unity.Mathematics;
+using static Unity.Mathematics.math;
 
 namespace GamesTan.ECS.Game {
     [UpdateInGroup(typeof(FrameCleanUpGroup))]
@@ -44,20 +45,23 @@ namespace GamesTan.ECS.Game {
 
                         // 检测是否想移动
                         if (Contexts.Random.NextFloat() > unit.MoveProbability) return;
+                        
                         // 移动检测,默认移动x轴
                         var dstPos1 = srcPos + new int2(diff.x > 0 ? 1 : -1, 0);
+                        if (srcPos.x == playerPos.x) dstPos1 = srcPos;
                         var dstPos2 = srcPos + new int2(0, diff.y > 0 ? 1 : -1);
-                        // x 轴距离更远 调换一下顺序
-                        if (absDiff.x == 0 || // x 轴已经移动不了了，换另外一条轴
-                            (absDiff.x > absDiff.y && // y值更加的近
-                             absDiff.y != 0 // y值一样的情况下，换一条轴移动
-                            )
-                        ) {
+                        if (srcPos.y == playerPos.y) dstPos2 = srcPos;
+                        
+                        var diff1 =  length(dstPos1 - playerPos);
+                        var diff2 =  length(dstPos2 - playerPos);
+                        // 选择近一点的
+                        if (diff1 < diff2) {
                             // swap
                             var temp = dstPos1;
                             dstPos1 = dstPos2;
                             dstPos2 = temp;
                         }
+
 
                         if (Contexts.MapData.CanMove(dstPos1)) {
                             Contexts.MapData.MoveTo(runtimeInfo.EntityType, srcPos, dstPos1);

@@ -33,7 +33,7 @@ namespace GamesTan.ECS.Game {
                     //var allPos = new NativeList<int2>();
                     var freeSlotCount = allPos.Length;
                     // create player
-                    var id = CreateEntity(em, ecb, players, rnd, GameDefine.PlayerInitPos, MapData.ETypePlayer);
+                    var id = CreateEntity(em, ecb, players,ref rnd, GameDefine.PlayerInitPos, MapData.ETypePlayer);
                     Contexts.GameData.PlayerEntityId = id;
                     Contexts.InputData.CurPos = GameDefine.PlayerInitPos;
                     Contexts.InputData.LastPos = GameDefine.PlayerInitPos;
@@ -41,17 +41,17 @@ namespace GamesTan.ECS.Game {
                     CreateEntity(ecb, config.ExitPrefab,  GameDefine.PlayerExitPos, MapData.ETypeExit);
                     // create enemy
                     for (int i = 0; i < gameConfig.EnemyCount; i++) {
-                        CreateEntity(em, ecb, enemies, rnd, allPos[--freeSlotCount], MapData.ETypeEnemy);
+                        CreateEntity(em, ecb, enemies,ref rnd, allPos[--freeSlotCount], MapData.ETypeEnemy);
                     }
 
                     // create wall
                     for (int i = 0; i < gameConfig.WallCount; i++) {
-                        CreateEntity(em, ecb, walls, rnd, allPos[--freeSlotCount], MapData.ETypeWall);
+                        CreateEntity(em, ecb, walls,ref rnd, allPos[--freeSlotCount], MapData.ETypeWall);
                     }
 
                     // create item
                     for (int i = 0; i < gameConfig.FoodCount; i++) {
-                        CreateEntity(em, ecb, items, rnd, allPos[--freeSlotCount], MapData.ETypeItem);
+                        CreateEntity(em, ecb, items,ref rnd, allPos[--freeSlotCount], MapData.ETypeItem);
                     }
 
                     ecb.DestroyEntity(entity);
@@ -67,9 +67,7 @@ namespace GamesTan.ECS.Game {
             for (int x = min.x; x <= max.x; x++) {
                 for (int y = min.y; y <= max.y; y++) {
                     var pos = new int2(x, y);
-                    if (((pos.x != max.x) || (pos.y != max.y))
-                        || ((pos.x != min.x) || (pos.y != min.y))
-                    ) {
+                    if (!(pos.IsEquals(max) || pos.IsEquals(min))) {
                         allPos.Add(pos);
                     }
                 }
@@ -89,7 +87,7 @@ namespace GamesTan.ECS.Game {
 
 
         private static long CreateEntity<T>(EntityManager em, EntityCommandBuffer ecb, DynamicBuffer<T> buffer,
-            Random rnd, int2 pos, int entityType)
+            ref Random rnd, int2 pos, int entityType)
             where T : unmanaged, IECSPrefabBufferElement {
             var prefab = buffer[rnd.NextInt(buffer.Length)].Prefab;
             return CreateEntity(ecb,prefab, pos, entityType);

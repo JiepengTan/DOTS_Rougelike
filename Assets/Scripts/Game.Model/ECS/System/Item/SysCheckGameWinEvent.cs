@@ -8,7 +8,7 @@ namespace GamesTan.ECS.Game {
         protected override void OnUpdate() {
             Entities.ForEach(
                 (Entity entity, CdEventGameWin unit) => {
-                    EventUtil.Trigger(EGameEvent.GameEventWin);
+                    EventUtil.Trigger(EGameEvent.GameEventPassLevel);
                 }).Run();
         }
 

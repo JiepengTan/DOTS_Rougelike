@@ -5,64 +5,67 @@ using UnityEngine.UI;
 
 namespace GamesTan.Game.View {
     public class UIManager : BaseMonoManager<UIManager> {
-        public Image levelImage;
-        public Text levelText;
+        public Image ImageLevel;
+        public Text TextLevel;
 
-        public Text label;
-        public float hideDelay = 2f;
-        int food;
+        public Text TextFood;
+        public float HideDelay = 0.8f;
+        private int _food;
 
-        public void Start() {
-            ShowLevelImage(Contexts.GameData.Level);
+        public override void DoAwake() {
+            base.DoAwake();
             // TODO auto register 
             EventUtil.AddListener(EGameEvent.CtxGameDataFood,OnEvent_CtxGameDataFood);
-            EventUtil.AddListener(EGameEvent.CtxGameDataLevel,OnEvent_CtxGameDataLevel);
-            
-            EventUtil.AddListener(EGameEvent.GameEventWin,OnEvent_GameEventWin);
             EventUtil.AddListener(EGameEvent.GameEventFailed,OnEvent_GameEventFailed);
-            food = Contexts.GameData.Food;
+            EventUtil.AddListener(EGameEvent.GameEventStart,OnEvent_GameEventStart);
+            EventUtil.AddListener(EGameEvent.GameEventLoadLevel,OnEvent_GameEventLoadLevel);
+        }
+        private void OnEvent_GameEventStart(object _) {
+            _food = Contexts.GameData.Food;
+            ShowLevelImage(Contexts.GameData.Level);
             UpdateFood(Contexts.GameData.Food);
         }
-
-        private void OnEvent_GameEventWin(object _) {
-        }
-
-        private void OnEvent_GameEventFailed(object _) {
-            ShowGameOver(Contexts.GameData.Level);
+        private void OnEvent_GameEventLoadLevel(object _) {
+            ShowLevelImage(Contexts.GameData.Level);
         }
         
+        private void OnEvent_GameEventFailed(object _) {
+            Invoke("ShowGameOver",1);
+        }
+
         private void OnEvent_CtxGameDataFood(object value) {
             UpdateFood(Contexts.GameData.Food);
         }
-        private void OnEvent_CtxGameDataLevel(object level) {
-            ShowLevelImage(Contexts.GameData.Level);
+        
+        private void ShowGameOver() {
+            ShowGameOver(Contexts.GameData.Level);
         }
 
-        public void UpdateFood(int newFood) {
-            var diff = newFood - food;
+        private void UpdateFood(int newFood) {
+            var diff = newFood - _food;
             var symbol = diff > 0 ? "+" : "";
             var prefix = Mathf.Abs(diff) > 1 ? symbol + diff + " " : "";
-            label.text = prefix + "Food: " + newFood;
-            food = newFood;
+            TextFood.text = prefix + "Food: " + newFood;
+            _food = newFood;
         }
 
 
-        public void ShowLevelImage(uint level) {
-            levelImage.enabled = true;
-            levelText.text = "Day " + (level);
-            levelText.enabled = true;
-            Invoke("HideLevelImage", hideDelay);
+        private void ShowLevelImage(uint level) {
+            ImageLevel.enabled = true;
+            TextLevel.text = "Day " + (level);
+            TextLevel.enabled = true;
+            Invoke("HideLevelImage", HideDelay);
         }
 
-        public void ShowGameOver(uint level) {
-            levelImage.enabled = true;
-            levelText.text = "After " + level + " days, you starved.";
-            levelText.enabled = true;
+        private void ShowGameOver(uint level) {
+            ImageLevel.enabled = true;
+            TextLevel.text = "After " + level + " days, you starved.";
+            TextLevel.enabled = true;
         }
 
-        void HideLevelImage() {
-            levelText.enabled = false;
-            levelImage.enabled = false;
+        private void HideLevelImage() {
+            TextLevel.enabled = false;
+            ImageLevel.enabled = false;
         }
     }
 }

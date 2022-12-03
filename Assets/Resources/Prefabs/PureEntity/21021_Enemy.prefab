@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45d2e14f80a7430699e46bfa3c951c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveProbability: 0.5
+  MoveProbability: 0.4
   AttackProbability: 1
-  Damage: 5
+  Damage: 10
   AI: 0

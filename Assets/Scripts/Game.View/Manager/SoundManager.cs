@@ -11,12 +11,21 @@ namespace GamesTan.Game.View {
         public override void DoAwake() {
             base.DoAwake();
             EventUtil.AddListener(EGameEvent.GameEventPlayerMoved, OnEvent_GameEventPlayerMoved);
+            EventUtil.AddListener(EGameEvent.GameEventStart, OnEvent_GameEventStart);
+            EventUtil.AddListener(EGameEvent.GameEventFailed, OnEvent_GameEventFailed);
         }
 
-        void OnEvent_GameEventPlayerMoved(object param) {
+        private void OnEvent_GameEventFailed(object _) {
+            StopMusic();
+        }
+
+        private void OnEvent_GameEventPlayerMoved(object param) {
             PlayAudio("scavengers_footstep" + (Random.Range(1,2).ToString()),true);
+        }    
+        private void OnEvent_GameEventStart(object param) {
+            PlayMusic();
         }
-
+        
         public void PlayAudio(string audioName, bool randomizePitch) {
             var audioClip = Resources.Load<AudioClip>("Audio/" + audioName);
 
@@ -45,7 +54,7 @@ namespace GamesTan.Game.View {
         public void StopMusic() {
             musicSource.Stop();
         }
-        public void PlayerMusic() {
+        public void PlayMusic() {
             musicSource.Play();
         }
     }

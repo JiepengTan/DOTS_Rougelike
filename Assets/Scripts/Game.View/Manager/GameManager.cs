@@ -1,76 +1,75 @@
 using System;
+using System.Collections.Generic;
 using GamesTan.ECS.Game;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Scenes;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace GamesTan.Game.View {
     public class GameManager : BaseMonoManager<GameManager> {
-        public bool useSeed = false;
-        public uint randomSeed = 42;
+        public uint RandomSeed = 42;
         public int InitFood = 100;
-        public LevelConfigData LevelConfigData;
-
 
         public string ScenePath = "Assets/Scenes/Main/GameLevel.unity";
         private Entity _sceneEntity;
+
+        [Header("Level Config")]
+        public int LevelCountPerConfig=3;
+        public List<LevelConfigData> LevelConfigDatas = new List<LevelConfigData>();
+        
+        
         public override void DoAwake() {
             base.DoAwake();
-            EventUtil.RemoveAllListener();
-            EventUtil.AddListener(EGameEvent.GameEventWin,OnEvent_GameEventWin);
+            EventUtil.AddListener(EGameEvent.GameEventPassLevel,OnEvent_GameEventPassLevel);
             EventUtil.AddListener(EGameEvent.GameEventFailed,OnEvent_GameEventFailed);
-            Debug.Log("Starting GameController using seed " + randomSeed);
-            StartGame();
         }
 
         private void Start() {
-            SoundManager.Instance.PlayerMusic();
+            StartGame();
         }
 
         private void StartGame() {
+            Debug.Log("StartGame");
             Contexts.SetContexts(new GameContexts());
             Contexts.ResetId();
-            Contexts.LevelConfigData = LevelConfigData;
             Contexts.ResetRandom(45);
             Contexts.GameData.Food = InitFood;
-            TryLoadNextLevel();
-            
+            LoadNextLevel();
+            EventUtil.Trigger(EGameEvent.GameEventStart);
         }
 
 
         private void LateUpdate() {
             if (Contexts.GameData.IsNeedLoadLevel) {
                 Contexts.GameData.IsNeedLoadLevel = false;
-                LoadLevel();
+                ReLoadScene();
             }
         }
 
-        private void OnEvent_GameEventWin(object _) {
+        private void OnEvent_GameEventPassLevel(object _) {
             Debug.Log("GameFailed");
-            TryLoadNextLevel();
+            LoadNextLevel();
         }
 
         private void OnEvent_GameEventFailed(object _) {
             Debug.Log("GameFailed");
             Invoke("StartGame",3);
-            SoundManager.Instance.StopMusic();
         }
 
-        static void TryLoadNextLevel() {
+        void LoadNextLevel() {
             Contexts.GameData.Level += 1;
-            Debug.Log("TryLoadNextLevel " +  Contexts.GameData.Level);
-            Contexts.GameData.IsNeedLoadLevel = true;
-            var level = Contexts.GameData.Level;
-            Contexts.LevelConfigData = new LevelConfigData() {
-                EnemyCount = 1,
-                FoodCount = 2,
-                RndSeed = level + 37,
-                WallCount = 3
-            };
-        }
-        private void LoadLevel() {
             Debug.Log("LoadNextLevel " +  Contexts.GameData.Level);
+            Contexts.GameData.IsNeedLoadLevel = true;
+            var level = (int)Contexts.GameData.Level-1;
+            var idx = (level / LevelCountPerConfig) ;
+            idx = math.min(idx, LevelConfigDatas.Count-1);
+            Contexts.LevelConfigData = LevelConfigDatas[idx];
+            EventUtil.Trigger(EGameEvent.GameEventLoadLevel);
+        }
+        private void ReLoadScene() {
+            Debug.Log("ReLoadScene " +  Contexts.GameData.Level);
             UnloadScene();
             LoadScene();
         }
@@ -90,7 +89,7 @@ namespace GamesTan.Game.View {
             EntityViewManager.Instance.DestroyAll();
         }
 
-        void LoadScene() {
+        private void LoadScene() {
             var world = World.DefaultGameObjectInjectionWorld;
             var sceneGuid = SceneSystem.GetSceneGUID(ref world.Unmanaged.GetExistingSystemState<SceneSystem>(), ScenePath);
             _sceneEntity = SceneSystem.LoadSceneAsync(world.Unmanaged, sceneGuid);

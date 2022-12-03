@@ -186,6 +186,53 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8601006575097099749, guid: 525abc5f678855a4fbc3d90d56954785,
+        type: 3}
+      propertyPath: PrefabWall.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601006575097099749, guid: 525abc5f678855a4fbc3d90d56954785,
+        type: 3}
+      propertyPath: PrefabWall.Array.data[0]
+      value: 
+      objectReference: {fileID: 2064014958139169241, guid: f9cf03286ee132248b2fc46e6a2654d8,
+        type: 3}
+    - target: {fileID: 8601006575097099749, guid: 525abc5f678855a4fbc3d90d56954785,
+        type: 3}
+      propertyPath: PrefabWall.Array.data[1]
+      value: 
+      objectReference: {fileID: 3273683712528812724, guid: a8133c45a6403b64a924b3e38b23fec5,
+        type: 3}
+    - target: {fileID: 8601006575097099749, guid: 525abc5f678855a4fbc3d90d56954785,
+        type: 3}
+      propertyPath: PrefabWall.Array.data[2]
+      value: 
+      objectReference: {fileID: 3273683712528812724, guid: 88fadf85b715afa46b1b780ce3889caa,
+        type: 3}
+    - target: {fileID: 8601006575097099749, guid: 525abc5f678855a4fbc3d90d56954785,
+        type: 3}
+      propertyPath: PrefabWall.Array.data[3]
+      value: 
+      objectReference: {fileID: 3273683712528812724, guid: 45cdb5a783827c0498917e0ae64edc20,
+        type: 3}
+    - target: {fileID: 8601006575097099749, guid: 525abc5f678855a4fbc3d90d56954785,
+        type: 3}
+      propertyPath: PrefabWall.Array.data[4]
+      value: 
+      objectReference: {fileID: 3273683712528812724, guid: 0fe0c06251b6dff49ba37763716d6ebc,
+        type: 3}
+    - target: {fileID: 8601006575097099749, guid: 525abc5f678855a4fbc3d90d56954785,
+        type: 3}
+      propertyPath: PrefabWall.Array.data[5]
+      value: 
+      objectReference: {fileID: 3273683712528812724, guid: 9a731118d5762a4448a6675b16471219,
+        type: 3}
+    - target: {fileID: 8601006575097099749, guid: 525abc5f678855a4fbc3d90d56954785,
+        type: 3}
+      propertyPath: PrefabWall.Array.data[6]
+      value: 
+      objectReference: {fileID: 3273683712528812724, guid: 7cf69b10927b9ed41b2d0a33017420c9,
+        type: 3}
     - target: {fileID: 8601006575097099751, guid: 525abc5f678855a4fbc3d90d56954785,
         type: 3}
       propertyPath: m_Name

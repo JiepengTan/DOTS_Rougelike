@@ -71,12 +71,12 @@ PrefabInstance:
     - target: {fileID: 2064014958139169240, guid: f9cf03286ee132248b2fc46e6a2654d8,
         type: 3}
       propertyPath: AssetId
-      value: 1032
+      value: 1037
       objectReference: {fileID: 0}
     - target: {fileID: 2064014958139169241, guid: f9cf03286ee132248b2fc46e6a2654d8,
         type: 3}
       propertyPath: m_Name
-      value: 21032_Wal2
+      value: 21037_Wal4 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

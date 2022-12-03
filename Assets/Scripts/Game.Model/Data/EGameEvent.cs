@@ -1,8 +1,10 @@
 ﻿namespace GamesTan.ECS.Game {
     public enum EGameEvent {
-        GameEventWin = 1001,
-        GameEventFailed = 1002,
-        GameEventPlayerMoved = 1003,
+        GameEventStart = 1001,
+        GameEventPassLevel = 1002,
+        GameEventFailed = 1003,
+        GameEventPlayerMoved = 1004,
+        GameEventLoadLevel = 1005,
         // 自动生成的代码
         CtxGameDataLevel = 10001,
         CtxGameDataFood = 10002,

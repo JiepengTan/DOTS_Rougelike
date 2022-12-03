@@ -13,6 +13,7 @@ namespace GamesTan.ECS.Game {
         public const int ETypeEnemy = 3;
         public const int ETypeItem = 4;
         public const int ETypeExit = 5;
+        public const int ETypeOutWall = 6;
 
 
         public bool IsNone(int2 pos) =>GetTile(pos) == ETypeNone;
@@ -26,6 +27,7 @@ namespace GamesTan.ECS.Game {
         public bool IsPlayer(int val) => val == ETypePlayer;
         public bool IsItem(int val) => val == ETypeItem;
         public bool IsEnemy(int val) => val == ETypeEnemy;
+        
         public void SetNone(int2 pos) => SetTile(pos,ETypeNone) ;
         public void SetWall(int2 pos) => SetTile(pos,ETypeWall) ;
         public void SetPlayer(int2 pos) => SetTile(pos,ETypePlayer);
@@ -33,6 +35,10 @@ namespace GamesTan.ECS.Game {
         public void SetEnemy(int2 pos) => SetTile(pos,ETypeEnemy) ;
         
 
+        public bool IsOutWall(int val) => val == ETypeOutWall;
+        public bool IsOutWall(int2 pos) => GetTile(pos) == ETypeOutWall;
+        public void SetOutWall(int2 pos) => SetTile(pos,ETypeOutWall) ;
+        
         public int GetTile(int x, int y ) => pos2Type[new int2(x, y)];
         public int GetTile(int2 pos) => pos2Type[pos];
         public void SetTile(int2 pos, int type) => pos2Type[pos] = type;
@@ -44,7 +50,7 @@ namespace GamesTan.ECS.Game {
         public void ResetMap() {
             for (int x = 0; x < GameDefine.MapSizeX; x++) {
                 for (int y = 0; y < GameDefine.MapSizeY; y++) {
-                    pos2Type[new int2(x, y)] = ETypeWall;
+                    pos2Type[new int2(x, y)] = ETypeOutWall;
                 }
             }
             for (int x = 1; x < GameDefine.MapSizeX-1; x++) {

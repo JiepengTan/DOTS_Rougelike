@@ -45,11 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a51a59208340acae2e87e3dd20d334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelImage: {fileID: 1563974221}
-  levelText: {fileID: 640480132}
-  label: {fileID: 93537621}
-  displayDelay: 0
-  hideDelay: 0.8
+  ImageLevel: {fileID: 1563974221}
+  TextLevel: {fileID: 640480132}
+  TextFood: {fileID: 93537621}
+  HideDelay: 0.8
 --- !u!1 &93537619
 GameObject:
   m_ObjectHideFlags: 0

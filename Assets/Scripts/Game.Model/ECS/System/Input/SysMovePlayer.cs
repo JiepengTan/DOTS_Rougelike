@@ -25,7 +25,10 @@ namespace GamesTan.ECS.Game {
                         if (player.MoveTimer > player.MoveInterval) {
                             var srcPos = runtimeInfo.Pos;
                             var dstPos = runtimeInfo.Pos + inputVal.ToInt2();
-                            if (!Contexts.MapData.CanMove(dstPos)) return;
+                            if (!Contexts.MapData.CanMove(dstPos)) {
+                                return;
+                            }
+
                             Contexts.MapData.MoveTo(runtimeInfo.EntityType, srcPos,dstPos);
                             runtimeInfo.Pos = dstPos;
                             player.MoveTimer = 0;
